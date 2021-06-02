@@ -1692,7 +1692,7 @@ function MageGate:PortalExpire(id)
 		--astrolabe:RemoveIconFromMinimap(openPortalList[id].icon.minimap)--Unknown glitch
 		--ClearWaypoint openPortalList[casterName.."-"..spellID].uid 
 
-		HBDpin.RemoveMinimapIcon(self, self, openPortalList[id].icon);
+		HBDpin.RemoveMinimapIcon(self, openPortalList[id].icon);
 		openPortalList[id]=nil
 end
 function MageGate:TogglePortalHide(valu)
