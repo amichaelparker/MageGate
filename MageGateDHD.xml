@@ -1,0 +1,329 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Frame name="PortalListElement" virtual="true">
+		<Size x="134" y="29" />
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="82" y="-83" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="" edgeFile="" tile="true">
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer>
+				<Texture>
+					<Size x="134" y="1" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset y="2" />
+						</Anchor>
+					</Anchors>
+					<Color r="0.502" g="0.502" b="0.502" />
+				</Texture>
+				<Texture>
+					<Size x="134" y="1" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset y="-28" />
+						</Anchor>
+					</Anchors>
+					<Color r="0.502" g="0.502" b="0.502" />
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="PortalButton" parentKey="but" text="Button3">
+				<Size x="134" y="25" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset y="-1" />
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="Destination String" inherits="GameFontNormal" parentKey="dest" text="" justifyH="LEFT">
+							<Size x="134" y="24" />
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Button>
+		</Frames>
+	</Frame>
+	<Frame name="MageGateDHD" hidden="true" parent="UIParent" toplevel="true" movable="true">
+		<Size>
+			<AbsDimension x="493" y="322" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="64" y="-146" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer>
+				<Texture name="Glyph1" parentKey="Glyph1">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="187" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph3" parentKey="Glyph3">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="237" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph5" parentKey="Glyph5">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="287" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph4" parentKey="Glyph4">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="262" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph6" parentKey="Glyph6">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="312" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph2" parentKey="Glyph2">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="212" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph8" parentKey="Glyph8">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="362" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph9" parentKey="Glyph9">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="387" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="Glyph7" parentKey="Glyph7">
+					<Size x="25" y="25" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="337" y="-129" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString name="EnableGateEffectString" inherits="GameFontNormal" parentKey="EnableString" text="Enabled" justifyH="LEFT">
+					<Size x="56" y="20" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="211" y="-90" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" text="7">
+					<Size x="16" y="18" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="314" y="-92" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" text="8">
+					<Size x="16" y="18" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="351" y="-92" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" text="9">
+					<Size x="16" y="18" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="397" y="-92" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="NumChevronString" inherits="GameFontNormal" parentKey="numchev" text="# Chevrons">
+					<Size x="120" y="12" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="292" y="-80" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="CurrentGlyphsMGString" inherits="GameFontNormal" parentKey="currentGlyphs" text="Current Glyphs">
+					<Size x="225" y="9" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="187" y="-114" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" parentKey="dialglyphs" text="Dial Glyphs">
+					<Size x="285" y="14" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="192" y="-193" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="NextGlyphString" inherits="GameFontNormal" parentKey="nextG" text="">
+					<Size x="81" y="13" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="280" y="-173" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GameFontNormal" text="Make Star Gate movable" justifyH="LEFT">
+					<Size x="201" y="15" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="211" y="-59" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button inherits="UIPanelCloseButton" text="Button1">
+				<Size x="26" y="22" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="451" y="-17" />
+					</Anchor>
+				</Anchors>
+			</Button>
+			<ScrollFrame name="PortalList" inherits="UIPanelScrollFrameTemplate" parentKey="portals">
+				<Size x="134" y="292" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="12" y="-17" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="" tile="true">
+					<TileSize>
+						<AbsValue val="32" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="32" />
+					</EdgeSize>
+				</Backdrop>
+			</ScrollFrame>
+			<CheckButton name="CastGateEnabled" inherits="UICheckButtonTemplate" parentKey="gateenabled" text="CheckButton1">
+				<Size x="20" y="20" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="185" y="-90" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="Chevrons7" inherits="UIRadioButtonTemplate" parentKey="c7" text="CheckButton2">
+				<Size x="21" y="18" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="292" y="-92" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="Chevron8" inherits="UIRadioButtonTemplate" parentKey="c8" text="CheckButton3">
+				<Size x="21" y="18" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="329" y="-92" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="Chevron9" inherits="UIRadioButtonTemplate" parentKey="c9" text="CheckButton4">
+				<Size x="21" y="18" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="373" y="-92" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<Button name="ClearCurrentMGGlyphs" inherits="UIPanelButtonTemplate" parentKey="clearglyphs" text="Clear">
+				<Size x="46" y="15" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="185" y="-160" />
+					</Anchor>
+				</Anchors>
+			</Button>
+			<CheckButton name="GateMovable" inherits="UICheckButtonTemplate" text="CheckButton5">
+				<Size x="20" y="20" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="183" y="-55" />
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<Button name="ShowRing" inherits="UIPanelButtonTemplate" parentKey="showring" text="Show">
+				<Size x="94" y="20" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="192" y="-35" />
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Frame name="GlyphMGFrame" parentKey="GlyphMGFrame">
+				<Size x="286" y="95" />
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="191" y="-213" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="" edgeFile="" tile="true">
+					<TileSize>
+						<AbsValue val="32" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="32" />
+					</EdgeSize>
+				</Backdrop>
+			</Frame>
+		</Frames>
+	</Frame>
+</Ui>

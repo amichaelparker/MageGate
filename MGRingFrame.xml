@@ -1,0 +1,113 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="MGRingFrame.lua" />
+	<Frame name="MGRingFrame" hidden="true" parent="UIParent" toplevel="true">
+		<Size>
+			<AbsDimension x="282" y="282" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="33" y="-25" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="" edgeFile="" tile="true">
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer>
+				<Texture name="SymbolsTexture" parentKey="art">
+					<Size x="282" y="282" />
+					<Anchors>
+						<Anchor point="TOPLEFT" />
+					</Anchors>
+				</Texture>
+				<Texture name="OuterRingTexture" parentKey="outer">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="EngagedGlyph1" parentKey="glyph1" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph2" parentKey="glyph2" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph3" parentKey="glyph3" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph4" parentKey="glyph4" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph5" parentKey="glyph5" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph6" parentKey="glyph6" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph7" parentKey="glyph7" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph8" parentKey="glyph8" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EngagedGlyph9" parentKey="glyph9" hidden="true">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="SymbolsTexture">
+							<Offset x="41" y="-46" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>

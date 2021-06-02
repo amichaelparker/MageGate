@@ -1,0 +1,786 @@
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="MGSettingsFrame.lua" />
+	<Frame name="MGSettingsFrame" hidden="true" movable="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="396" y="453" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="13" y="-30" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer>
+				<Texture name="myFrameHeader" file="Interface\DialogFrame\UI-DialogBox-Gold-Header">
+					<Size>
+						<AbsDimension x="356" y="64" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString inherits="GameFontNormal" text="Mage Gate">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="myFrameHeader">
+							<Offset>
+								<AbsDimension x="0" y="-14" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="MGStyleFrame">
+				<Size>
+					<AbsDimension x="375" y="102" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-300" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+					<BackgroundInsets>
+						<AbsInset left="11" right="12" top="12" bottom="11" />
+					</BackgroundInsets>
+					<TileSize>
+						<AbsValue val="3" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="37" />
+					</EdgeSize>
+				</Backdrop>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="lb_Abort_SG1" inherits="GameFontNormal" text="SG1">
+							<Size>
+								<AbsDimension x="45" y="18" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="53" y="-49" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentText" inherits="GameFontNormalSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset x="-353" y="27" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Abort_SGA" inherits="GameFontNormal" text="SGA">
+							<Size>
+								<AbsDimension x="45" y="18" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="53" y="-71" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Abort_Style" inherits="GameFontNormalLarge" text="Abort Style">
+							<Size>
+								<AbsDimension x="146" y="25" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="17" y="-17" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentText" inherits="GameFontNormalSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset x="-343" y="21" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Ring_Style" inherits="GameFontNormalLarge" text="Ring Style">
+							<Size>
+								<AbsDimension x="148" y="25" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="210" y="-17" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Ring_SG1" inherits="GameFontNormal" text="SG1">
+							<Size>
+								<AbsDimension x="35" y="16" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="232" y="-49" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Ring_SGA" inherits="GameFontNormal" text="SGA">
+							<Size>
+								<AbsDimension x="35" y="18" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="232" y="-71" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<CheckButton name="CheckButton2" inherits="UIRadioButtonTemplate" text="CheckButton1">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="17" y="-49" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								CheckButton2_OnClick();
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="CheckButton1" inherits="UIRadioButtonTemplate" text="CheckButton1">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="17" y="-71" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								CheckButton1_OnClick();
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="rb_RingSG1" inherits="UIRadioButtonTemplate" text="CheckButton3">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="210" y="-49" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								rb_RingSG1_Click();
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="rb_RingSGA" inherits="UIRadioButtonTemplate" text="CheckButton3">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="210" y="-71" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								rb_RingSGA_Click();
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<Button name="but_Abort_SG1_Preview" inherits="UIPanelButtonTemplate" text="Prévisualiser">
+						<Size>
+							<AbsDimension x="83" y="16" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="104" y="-49" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								but_Abort_SG1_Preview_OnClick();
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="but_Abort_SGA_Preview" inherits="UIPanelButtonTemplate" text="Preview">
+						<Size>
+							<AbsDimension x="83" y="16" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="104" y="-71" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								but_Abort_SGA_Preview_OnClick();
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="but_Ring_SG1_Preview" inherits="UIPanelButtonTemplate" text="Prévisualiser">
+						<Size>
+							<AbsDimension x="84" y="16" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="273" y="-51" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								but_Ring_SG1_Preview_OnClick();
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="but_Ring_SGA_Preview" inherits="UIPanelButtonTemplate" text="Preview">
+						<Size>
+							<AbsDimension x="85" y="16" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="273" y="-71" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								but_Ring_SGA_Preview_OnClick();
+							</OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+			</Frame>
+			<Frame name="MGChevronFrame">
+				<Size>
+					<AbsDimension x="375" y="68" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-236" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+					<BackgroundInsets>
+						<AbsInset left="11" right="12" top="12" bottom="11" />
+					</BackgroundInsets>
+					<TileSize>
+						<AbsValue val="32" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="32" />
+					</EdgeSize>
+				</Backdrop>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentText" inherits="GameFontNormalSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset x="-335" y="29" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="$parentText" inherits="GameFontNormalSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset x="-335" y="74" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Chev7" inherits="GameFontNormal" text="7">
+							<Scripts>
+								<OnEnter>
+									chevronSettingToolTip(self,nil);
+								</OnEnter>
+							</Scripts>
+							<Size>
+								<AbsDimension x="16" y="16" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="234" y="-35" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Chev8" inherits="GameFontNormal" text="8">
+							<Scripts>
+								<OnEnter>
+									chevronSettingToolTip(self,nil);
+								</OnEnter>
+							</Scripts>
+							<Size>
+								<AbsDimension x="16" y="16" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="283" y="-35" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Chev9" inherits="GameFontNormal" text="9">
+							<Scripts>
+								<OnEnter>
+									chevronSettingToolTip(self,nil);
+								</OnEnter>
+							</Scripts>
+							<Size>
+								<AbsDimension x="16" y="16" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="330" y="-35" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Full_Chevron" inherits="GameFontNormal" text="Full Chevron Count" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="120" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="58" y="-20" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Chevron_Max" inherits="GameFontNormalLarge" text="Chevron Max">
+							<Size>
+								<AbsDimension x="140" y="21" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="203" y="-13" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<CheckButton name="cb_Chev7" inherits="UIRadioButtonTemplate" text="CheckButton3">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="210" y="-35" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_Chev7_OnClick();
+							</OnClick>
+							<OnEnter>
+								chevronSettingToolTip(self,nil);
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_Chev8" inherits="UIRadioButtonTemplate" text="CheckButton3">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="259" y="-35" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_Chev8_OnClick();
+							</OnClick>
+							<OnEnter>
+								chevronSettingToolTip(self,nil);
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_Chev9" inherits="UIRadioButtonTemplate" text="CheckButton3">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="306" y="-35" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_Chev9_OnClick();
+							</OnClick>
+							<OnEnter>
+								chevronSettingToolTip(self,nil);
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_FullChev" inherits="UICheckButtonTemplate" text="CheckButton3">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="22" y="-20" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_FullChev_OnClick();
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Frame3_OnLoad();
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<Frame name="MGFeatureFrame">
+				<Size>
+					<AbsDimension x="375" y="133" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-102" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+					<BackgroundInsets>
+						<AbsInset left="11" right="12" top="12" bottom="11" />
+					</BackgroundInsets>
+					<TileSize>
+						<AbsValue val="32" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="32" />
+					</EdgeSize>
+				</Backdrop>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="lb_Portal_Tracker" inherits="GameFontNormal" text="Portal Tracker" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="88" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="58" y="-17" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Auto_Summon" inherits="GameFontNormal" text="Auto Summon" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="98" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="58" y="-49" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString parentKey="text" name="$parentText" inherits="GameFontNormalSmall">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset x="-2" y="-28" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_SFX_Others" inherits="GameFontNormal" text="SFX for others portals" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="129" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="58" y="-81" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Portal_Exit" inherits="GameFontNormal" text="Portal Exit" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="102" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="256" y="-52" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Ring_Teleport" inherits="GameFontNormal" text="Ring Teleport" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="107" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="254" y="-17" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_Traveller" inherits="GameFontNormal" text="Traveller" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="97" y="35" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="256" y="-81" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<CheckButton name="cb_PortalTracker" inherits="UICheckButtonTemplate" text="CheckButton4">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="19" y="-17" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_PortalTracker_OnClick();
+							</OnClick>
+							<OnEnter>
+								PortTrackToolTip(self, nil)
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_AutoSummon" inherits="UICheckButtonTemplate" text="CheckButton4">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="19" y="-52" />
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="OVERLAY">
+								<FontString parentKey="text" name="$parentText" inherits="GameFontNormalSmall">
+									<Anchors>
+										<Anchor point="LEFT" relativePoint="RIGHT">
+											<Offset x="309" y="-59" />
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnClick>
+								cb_AutoSumm_OnClick();
+							</OnClick>
+							<OnEnter>
+								AutoSummToolTip(self,nil);
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_PortExit" inherits="UICheckButtonTemplate" text="CheckButton45">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="217" y="-52" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_PortExit_OnClick();
+							</OnClick>
+							<OnEnter>
+								wormholeExitToolTip(self, nil)
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_Ring" inherits="UICheckButtonTemplate" text="CheckButton47">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="217" y="-17" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_Ring_OnClick();
+							</OnClick>
+							<OnEnter>
+								RingToolTip(self, nil)
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_OthersSFX" inherits="UICheckButtonTemplate" text="CheckButton42">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="19" y="-84" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_OthersSFX_OnClick();
+							</OnClick>
+							<OnEnter>
+								casterSettingToolTip(self,nil)
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave()
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_Traveller" inherits="UICheckButtonTemplate" text="CheckButton46">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="217" y="-84" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_Traveller_Click();
+							</OnClick>
+							<OnEnter>
+								travellerSettingToolTip(self,nil)
+							</OnEnter>
+							<OnLeave>
+								chevronSettingToolTipLeave();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+			</Frame>
+			<Frame name="MGSFXFrame">
+				<Size>
+					<AbsDimension x="375" y="81" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="8" y="-25" />
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+					<BackgroundInsets>
+						<AbsInset left="11" right="12" top="12" bottom="11" />
+					</BackgroundInsets>
+					<TileSize>
+						<AbsValue val="32" />
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="32" />
+					</EdgeSize>
+				</Backdrop>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="lb_Sound_FX_On" inherits="GameFontNormal" text="Sound FX On" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="88" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="68" y="-27" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="lb_SFX_Master_On" inherits="GameFontNormal" text="SFX Master On" justifyH="LEFT">
+							<Size>
+								<AbsDimension x="92" y="32" />
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="203" y="-27" />
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<CheckButton name="cb_SoundOn" inherits="UICheckButtonTemplate" text="CheckButton3">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="22" y="-27" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_SoundOn_OnClick();
+							</OnClick>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="cb_MasterSFX_On" inherits="UICheckButtonTemplate" text="CheckButton4">
+						<Size>
+							<AbsDimension x="33" y="32" />
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="162" y="-27" />
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								cb_MasterSFX_On_OnClick();
+							</OnClick>
+							<OnEnter>
+								cb_MasterSFX_On_OnEnter(self,nil);
+							</OnEnter>
+							<OnLeave>
+								cb_MasterSFX_On_OnLeave();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+			</Frame>
+			<Button name="CloseButton1" inherits="UIPanelButtonTemplate" text="Close">
+				<Size>
+					<AbsDimension x="95" y="33" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="281" y="-402" />
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						Button1_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForDrag("LeftButton");
+				Frame1_OnLoad();
+				localizeUI();
+			</OnLoad>
+			<OnDragStart>
+				self:StartMoving();
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing();
+			</OnDragStop>
+			<OnShow>
+				OnLoad();
+			</OnShow>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,39 @@
+<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="GateCaster.lua" />
+	<Frame name="GateCaster" parent="UIParent" toplevel="true" movable="true">
+		<Size>
+			<AbsDimension x="282" y="282" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset x="101" y="-153" />
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="" edgeFile="" tile="true">
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer>
+				<Texture name="SymbolsTexture" parentKey="art">
+					<Size x="282" y="282" />
+					<Anchors>
+						<Anchor point="TOPLEFT" />
+					</Anchors>
+				</Texture>
+				<Texture name="OuterRingTexture" parentKey="outer">
+					<Size x="200" y="200" />
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="41" y="-39" />
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>
