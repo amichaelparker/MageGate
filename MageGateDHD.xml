@@ -6,14 +6,14 @@
 				<Offset x="82" y="-83" />
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile="" edgeFile="" tile="true">
+		<!-- <Backdrop bgFile="" edgeFile="" tile="true">
 			<TileSize>
 				<AbsValue val="32" />
 			</TileSize>
 			<EdgeSize>
 				<AbsValue val="32" />
 			</EdgeSize>
-		</Backdrop>
+		</Backdrop> -->
 		<Layers>
 			<Layer>
 				<Texture>
@@ -66,7 +66,7 @@
 				<Offset x="64" y="-146" />
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+		<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 			<BackgroundInsets>
 				<AbsInset left="11" right="12" top="12" bottom="11" />
 			</BackgroundInsets>
@@ -76,7 +76,7 @@
 			<EdgeSize>
 				<AbsValue val="32" />
 			</EdgeSize>
-		</Backdrop>
+		</Backdrop> -->
 		<Layers>
 			<Layer>
 				<Texture name="Glyph1" parentKey="Glyph1">
@@ -243,14 +243,14 @@
 						<Offset x="12" y="-17" />
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="" tile="true">
+				<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="" tile="true">
 					<TileSize>
 						<AbsValue val="32" />
 					</TileSize>
 					<EdgeSize>
 						<AbsValue val="32" />
 					</EdgeSize>
-				</Backdrop>
+				</Backdrop> -->
 			</ScrollFrame>
 			<CheckButton name="CastGateEnabled" inherits="UICheckButtonTemplate" parentKey="gateenabled" text="CheckButton1">
 				<Size x="20" y="20" />
@@ -315,14 +315,14 @@
 						<Offset x="191" y="-213" />
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="" edgeFile="" tile="true">
+				<!-- <Backdrop bgFile="" edgeFile="" tile="true">
 					<TileSize>
 						<AbsValue val="32" />
 					</TileSize>
 					<EdgeSize>
 						<AbsValue val="32" />
 					</EdgeSize>
-				</Backdrop>
+				</Backdrop> -->
 			</Frame>
 		</Frames>
 	</Frame>

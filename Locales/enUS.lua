@@ -312,3 +312,5 @@ L["Teleport_Daz"]="Teleport: Dazar'alor"
 
 L["Portal_Oribos"] = "Oribos"
 L["Teleport_Oribos"]="Teleport: Oribos"
+L["Teleport_Valdrakken"]="Teleport: Valdrakken"
+L["Portal_Valdrakken"]="Valdrakken"

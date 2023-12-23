@@ -9,14 +9,14 @@
 				<Offset x="33" y="-25" />
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile="" edgeFile="" tile="true">
+		<!-- <Backdrop bgFile="" edgeFile="" tile="true">
 			<TileSize>
 				<AbsValue val="32" />
 			</TileSize>
 			<EdgeSize>
 				<AbsValue val="32" />
 			</EdgeSize>
-		</Backdrop>
+		</Backdrop> -->
 		<Layers>
 			<Layer>
 				<Texture name="SymbolsTexture" parentKey="art">
