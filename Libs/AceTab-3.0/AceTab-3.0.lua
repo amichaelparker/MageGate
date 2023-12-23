@@ -2,14 +2,12 @@
 -- Note: This library is not yet finalized.
 -- @class file
 -- @name AceTab-3.0
--- @release $Id: AceTab-3.0.lua 1031 2011-06-29 15:04:34Z nevcairiel $
+-- @release $Id: AceTab-3.0.lua 1287 2022-09-25 09:15:57Z nevcairiel $
 
 local ACETAB_MAJOR, ACETAB_MINOR = 'AceTab-3.0', 9
 local AceTab, oldminor = LibStub:NewLibrary(ACETAB_MAJOR, ACETAB_MINOR)
 
 if not AceTab then return end -- No upgrade needed
-
-local is335 = GetBuildInfo() >= "3.3.5"
 
 AceTab.registry = AceTab.registry or {}
 
@@ -38,7 +36,7 @@ end
 local function hookFrame(f)
 	if f.hookedByAceTab3 then return end
 	f.hookedByAceTab3 = true
-	if f == (is335 and ChatEdit_GetActiveWindow() or ChatFrameEditBox) then
+	if f == ChatEdit_GetActiveWindow() then
 		local origCTP = ChatEdit_CustomTabPressed
 		function ChatEdit_CustomTabPressed(...)
 			if AceTab:OnTabPressed(f) then
@@ -61,8 +59,6 @@ local function hookFrame(f)
 	f.at3curMatch = 0
 	f.at3matches = {}
 end
-
-local firstPMLength
 
 local fallbacks, notfallbacks = {}, {}  -- classifies completions into those which have preconditions and those which do not.  Those without preconditions are only considered if no other completions have matches.
 local pmolengths = {}  -- holds the number of characters to overwrite according to pmoverwrite and the current prematch
@@ -126,35 +122,31 @@ function AceTab:RegisterTabCompletion(descriptor, prematches, wordlist, usagefun
 
 	-- Make listenframes into a one-element table if it was not passed a table of frames.
 	if not listenframes then  -- default
-		if is335 then
-			listenframes = {}
-			for i = 1, NUM_CHAT_WINDOWS do
-				listenframes[i] = _G["ChatFrame"..i.."EditBox"]
-			end
-		else
-			listenframes = { ChatFrameEditBox }
+		listenframes = {}
+		for i = 1, NUM_CHAT_WINDOWS do
+			listenframes[i] = _G["ChatFrame"..i.."EditBox"]
 		end
 	elseif type(listenframes) ~= 'table' or type(listenframes[0]) == 'userdata' and type(listenframes.IsObjectType) == 'function' then  -- single frame or framename
 		listenframes = { listenframes }
 	end
-	
+
 	-- Hook each registered listenframe and give it a matches table.
 	for _, f in pairs(listenframes) do
 		if type(f) == 'string' then
 			f = _G[f]
 		end
 		if type(f) ~= 'table' or type(f[0]) ~= 'userdata' or type(f.IsObjectType) ~= 'function' then
-			error(format(ACETAB_MAJOR..": Cannot register frame %q; it does not exist", f:GetName()))
+			error(strformat(ACETAB_MAJOR..": Cannot register frame %q; it does not exist", f:GetName()))
 		end
 		if f then
 			if f:GetObjectType() ~= 'EditBox' then
-				error(format(ACETAB_MAJOR..": Cannot register frame %q; it is not an EditBox", f:GetName()))
+				error(strformat(ACETAB_MAJOR..": Cannot register frame %q; it is not an EditBox", f:GetName()))
 			else
 				hookFrame(f)
 			end
 		end
 	end
-	
+
 	-- Everything checks out; register this completion.
 	if not registry[descriptor] then
 		registry[descriptor] = { prematches = pmtable, wordlist = wordlist, usagefunc = usagefunc, listenframes = listenframes, postfunc = postfunc, pmoverwrite = pmoverwrite }
@@ -239,11 +231,10 @@ end
 
 local IsSecureCmd = IsSecureCmd
 
-local cands, candUsage = {}, {}
+local candUsage = {}
 local numMatches = 0
 local firstMatch, hasNonFallback, allGCBS, setGCBS, usage
 local text_precursor, text_all, text_pmendToCursor
-local matches, usagefunc  -- convenience locals
 
 -- Fill the this.at3matches[descriptor] tables with matching completion pairs for each entry, based on
 -- the partial string preceding the cursor position and using the corresponding registered wordlist.
@@ -299,7 +290,7 @@ local function fillMatches(this, desc, fallback)
 						wordlist(cands, text_all, prematchEnd + 1, text_pmendToCursor)
 					end
 					if cands ~= false then
-						matches = this.at3matches[desc] or {}
+						local matches = this.at3matches[desc] or {}
 						for i in pairs(matches) do matches[i] = nil end
 
 						-- Check each of the entries in cands to see if it completes the word before the cursor.
@@ -311,7 +302,6 @@ local function fillMatches(this, desc, fallback)
 								numMatches = numMatches + 1
 								if numMatches == 1 then
 									firstMatch = matches[m]
-									firstPMLength = pmolengths[desc] or 0
 								end
 							end
 						end
@@ -327,7 +317,7 @@ function AceTab:OnTabPressed(this)
 	if this:GetText() == '' then return true end
 
 	-- allow Blizzard to handle slash commands, themselves
-	if this == (is335 and ChatEdit_GetActiveWindow() or ChatFrameEditBox) then
+	if this == ChatEdit_GetActiveWindow() then
 		local command = this:GetText()
 		if strfind(command, "^/[%a%d_]+$") then
 			return true
@@ -361,10 +351,9 @@ function AceTab:OnTabPressed(this)
 
 	numMatches = 0
 	firstMatch = nil
-	firstPMLength = 0
 	hasNonFallback = false
 	for i in pairs(pmolengths) do pmolengths[i] = nil end
-	
+
 	for desc in pairs(notfallbacks) do
 		fillMatches(this, desc)
 	end
@@ -374,7 +363,7 @@ function AceTab:OnTabPressed(this)
 		end
 	end
 
-	if not firstMatch then 
+	if not firstMatch then
 		this.at3_last_precursor = "\0"
 		return true
 	end
@@ -396,11 +385,11 @@ function AceTab:OnTabPressed(this)
 		for desc, matches in pairs(this.at3matches) do
 			-- Don't print usage statements for fallback completion groups if we have 'real' completion groups with matches.
 			if hasNonFallback and fallbacks[desc] then break end
-			
+
 			-- Use the group's description as a heading for its usage statements.
 			DEFAULT_CHAT_FRAME:AddMessage(desc..":")
 
-			usagefunc = registry[desc].usagefunc
+			local usagefunc = registry[desc].usagefunc
 			if not usagefunc then
 				-- No special usage processing; just print a list of the (formatted) matches.
 				for m, fm in pairs(matches) do

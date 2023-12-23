@@ -240,3 +240,5 @@ L["Teleport_Daz"]="Teleportieren: Dazar'alor"
 
 L["Portal_Oribos"] ="Oribos"
 L["Teleport_Oribos"]="Teleportieren: Oribos"
+L["Teleport_Valdrakken"]="Teleportieren: Valdrakken"
+L["Portal_Valdrakken"]="Valdrakken"

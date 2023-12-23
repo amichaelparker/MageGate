@@ -9,7 +9,7 @@
 				<Offset x="13" y="-30" />
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+		<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
 			<BackgroundInsets>
 				<AbsInset left="11" right="12" top="12" bottom="11" />
 			</BackgroundInsets>
@@ -19,7 +19,7 @@
 			<EdgeSize>
 				<AbsValue val="32" />
 			</EdgeSize>
-		</Backdrop>
+		</Backdrop> -->
 		<Layers>
 			<Layer>
 				<Texture name="myFrameHeader" file="Interface\DialogFrame\UI-DialogBox-Gold-Header">
@@ -55,7 +55,7 @@
 						<Offset x="8" y="-300" />
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+				<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
 					<BackgroundInsets>
 						<AbsInset left="11" right="12" top="12" bottom="11" />
 					</BackgroundInsets>
@@ -65,7 +65,7 @@
 					<EdgeSize>
 						<AbsValue val="37" />
 					</EdgeSize>
-				</Backdrop>
+				</Backdrop> -->
 				<Layers>
 					<Layer level="OVERLAY">
 						<FontString name="lb_Abort_SG1" inherits="GameFontNormal" text="SG1">
@@ -264,7 +264,7 @@
 						<Offset x="8" y="-236" />
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+				<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
 					<BackgroundInsets>
 						<AbsInset left="11" right="12" top="12" bottom="11" />
 					</BackgroundInsets>
@@ -274,7 +274,7 @@
 					<EdgeSize>
 						<AbsValue val="32" />
 					</EdgeSize>
-				</Backdrop>
+				</Backdrop> -->
 				<Layers>
 					<Layer level="OVERLAY">
 						<FontString name="$parentText" inherits="GameFontNormalSmall">
@@ -444,7 +444,7 @@
 						<Offset x="8" y="-102" />
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+				<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
 					<BackgroundInsets>
 						<AbsInset left="11" right="12" top="12" bottom="11" />
 					</BackgroundInsets>
@@ -454,7 +454,7 @@
 					<EdgeSize>
 						<AbsValue val="32" />
 					</EdgeSize>
-				</Backdrop>
+				</Backdrop> -->
 				<Layers>
 					<Layer level="OVERLAY">
 						<FontString name="lb_Portal_Tracker" inherits="GameFontNormal" text="Portal Tracker" justifyH="LEFT">
@@ -675,7 +675,7 @@
 						<Offset x="8" y="-25" />
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
+				<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Gold-Border" tile="true">
 					<BackgroundInsets>
 						<AbsInset left="11" right="12" top="12" bottom="11" />
 					</BackgroundInsets>
@@ -685,7 +685,7 @@
 					<EdgeSize>
 						<AbsValue val="32" />
 					</EdgeSize>
-				</Backdrop>
+				</Backdrop> -->
 				<Layers>
 					<Layer level="OVERLAY">
 						<FontString name="lb_Sound_FX_On" inherits="GameFontNormal" text="Sound FX On" justifyH="LEFT">
