@@ -723,6 +723,20 @@ local GateFxOptions = {	name = L["GATE_SOUND_OP"],
 --SinglePortalSetting = {Active = false, Abort = 1, RingTurning = 1, Level = 4, JustYou = true, FullChev = false, ChevMax = 7},
 };
 
+-- Plays portal sound when clicking on a portal.
+local function OnMouseDown(self, button)
+    if button == "RightButton" then
+        local text = GameTooltipTextLeft1:GetText()
+        if text and (text:find("Portal") or text:find("Teleport")) then
+            -- Player clicked on a mage portal
+            print("Departing!")
+            MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Exit-Enter 1.ogg", "Master")
+        end
+    end
+end
+
+WorldFrame:HookScript("OnMouseDown", OnMouseDown)
+
 ---This function fills the group GateFxOptions with a sub group for each portal.
 
 function MageGate:PortalToggle(value)
@@ -984,15 +998,21 @@ local FeatureOptions = {
 			order = 11,
 			set = function (info, val) MageGate.db.profile.WormExit = val end,
 			get = function () return MageGate.db.profile.WormExit end},
+		CloseExit = {type = "toggle",
+			name = L["CLOSE_EXIT_SOUND"],
+			desc = L["CLOSE_EXIT_DESC"],
+			order = 12,
+			set = function (info, val) MageGate.db.profile.CloseExit = val end,
+			get = function () return MageGate.db.profile.CloseExit end},
 
 		PortalCloseHeader = {
 			type = "header", 
 			name = L["PORT_CLOSE"] , 
-			order = 11},
+			order = 13},
 		PortalCloseActive = {type = "toggle",
 			name = L["ENABLED"], 
 			desc =L["PORT_CLOSE_EN_DESC"], 
-			order = 12,
+			order = 14,
 			set = function (info, val) MageGate.db.profile.PortalClose.Active = val end,
 			get = function () return MageGate.db.profile.PortalClose.Active end},
 		PortalCloseLevel=	{
@@ -1000,12 +1020,10 @@ local FeatureOptions = {
 			style = "dropdown",
 			name = L["TELE_SOUND_LEVEL"],  
 			desc = L["TELE_SOUND_LEVEL_DESC"],
-			order = 12,
+			order = 15,
 			set = function(info,value) MageGate.db.profile.PortalClose.Level = value end,
 			get = function () return MageGate.db.profile.PortalClose.Level end,
-			values = soundLevels
-		}	
-			
+			values = soundLevels},
 	},
 }
 
@@ -2175,6 +2193,11 @@ end
 function MageGate:PLAYER_ENTERING_WORLD()
 	if goingThroughPortal and self.db.profile.WormExit then
 		MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Exit-Enter 1.ogg", "Master")
+		if self.db.profile.CloseExit then
+			C_Timer.After(2, function()
+				MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Close.ogg", "Master")
+			end)
+		end
 		GameTooltip:ClearLines()
 		goingThroughPortal = false;
 	else
@@ -2306,10 +2329,7 @@ end
 -- Otherwise, it will play sound effects dependent on the client's sound.
 -- @param fx The sound file address.
 function MageGate:DoFx(fx, level)
-
-
-		PlaySoundFile(fx,level)
-
+	PlaySoundFile(fx, level)
 end
 function MageGate:TableSize(tab)
 	count =0
@@ -2372,7 +2392,6 @@ function MageGate:DialingForSpin(spellID)
 		--						Glyphs = {}
 		--					}
 end
-
 
 -- ========================================================================================================================================================== --
 -- No longer used functions.

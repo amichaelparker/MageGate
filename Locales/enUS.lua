@@ -41,9 +41,10 @@ L["CHEVRON_COUNT_NUM"]		= "Chevron count is %u" -- Update French
 
 -- Wormhole Exit
 
-L["WORM_EXIT_DESC"] = "Set whether or not the wormhole exit sound is played when you arrive at the end of a portal."-- Update French
-L["WORM_EXIT_ON"]	= "Wormhole exit sound effect on."-- Update French
-L["WORM_EXIT_OFF"]	= "Wormhole exit sound effect off."-- Update French
+L["WORM_EXIT_DESC"]  = "Set whether or not the wormhole exit sound is played when you arrive at the end of a portal."-- Update French
+L["WORM_EXIT_ON"]	 = "Wormhole exit sound effect on."-- Update French
+L["WORM_EXIT_OFF"]	 = "Wormhole exit sound effect off."-- Update French
+L["CLOSE_EXIT_DESC"] = "Set whether or not the gate closing sound is played when you arrive at the end of a portal."
 
 -- Marker
 L["MARKER_ON"]		= "Portal markers on"-- Update French
@@ -156,6 +157,7 @@ L["SUMMON_SOUND_DESC"]			= "Set the sound effect of being summoned."
 
 L["EXIT_PORTAL_DESC"]		= "Exiting Portal Settings"
 L["WORMHOLE_EXIT_SOUND"]	= "Wormhole Exit Sound"
+L["CLOSE_EXIT_SOUND"]	    = "Gate Closing Exit Sound"
 L["CLASSIC_SETTINGS"]		= "Classic Settings"
 L["CLASSIC_MODE"]			= "Classic Mode"
 L["CLASSIC_MODE_DESC"]		= "Sets the addon to use the original effect setting format (All portals use same sounds)."
