@@ -601,7 +601,7 @@ local main = {
 		confgendesc = {
 			order = 1,
 			type = "description",
-			name = GetAddOnMetadata("MageGate", "Notes").."\n\n",
+			name = C_AddOns.GetAddOnMetadata("MageGate", "Notes").."\n\n",
 			cmdHidden = true
 		},
 		confinfodesc = {
@@ -612,14 +612,14 @@ local main = {
 					order = 1,
 					type = "description",
 					name = "|cffffd700".."version "..": "
-					..G["GREEN_FONT_COLOR_CODE"]..tostring(GetAddOnMetadata("MageGate", "Version")).."\n",
+					..G["GREEN_FONT_COLOR_CODE"]..tostring(C_AddOns.GetAddOnMetadata("MageGate", "Version")).."\n",
 					cmdHidden = true
 				},
 				confauthordesc = {
 					order = 2,
 					type = "description",
 					name = "|cffffd700".."Author "..": "
-					..G["ORANGE_FONT_COLOR_CODE"]..GetAddOnMetadata("MageGate", "Author").."\n",
+					..G["ORANGE_FONT_COLOR_CODE"]..C_AddOns.GetAddOnMetadata("MageGate", "Author").."\n",
 					cmdHidden = true
 				},
 
