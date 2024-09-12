@@ -146,6 +146,12 @@
 -- Updated libraries.
 --	Added BFA Teleports and Portals.
 -- ====================================================================================================== --
+--  Version 11.0.2.1
+--  09/12/2024
+-- Updated version number.
+-- Updated libraries.
+-- Add War Within teleports and portals.
+-- ====================================================================================================== --
 local G						= getfenv(0)
 local protX, protY			= nil,nil;
 MageGate					= LibStub("AceAddon-3.0"):NewAddon("MageGate","AceConsole-3.0","AceComm-3.0", "AceEvent-3.0", "AceTimer-3.0","AceHook-3.0")
@@ -247,6 +253,7 @@ local teleportsID = {}
 	teleportsID[281404] = L["Teleport_Daz"]
 	teleportsID[344587] = L["Teleport_Oribos"]
 	teleportsID[395277] = L["Teleport_Valdrakken"]
+	teleportsID[446540] = L["Teleport_Dornogal"]
 	--teleportsID[64024]		= L["Teleport_Conservatory"]
 	
 	
@@ -295,6 +302,7 @@ local portalsID = {}
 	portalsID[281402] = L["Portal_Daz"]
 	portalsID[344597] = L["Portal_Oribos"]
 	portalsID[395289] = L["Portal_Valdrakken"]
+	portalsID[446534] = L["Portal_Dornogal"]
 	wormholeDestinations = {}
 	wormholeDestinations[67833] = "Northrend"
 	wormholeDestinations[126755] = "Pandaria"
