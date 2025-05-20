@@ -1,8 +1,8 @@
 ## Author: Endar_Ren
-## Interface: 110005
+## Interface: 110105,110107
 ## Notes: Adds a touch of Star Gate to the mage portals when they are being casted.  This is a novelty addon, it does not change or add to the interface.  This is the basic version.
 ## Title: Mage Gate
-## Version: 11.0.5
+## Version: 11.1.5
 ## DefaultState: Enabled
 ## eMail: MasterEndar@yahoo.com
 ## LoadOnDemand: 0
