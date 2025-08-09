@@ -180,10 +180,10 @@ local GateSpinTimer = nil
 -- ========================================================================================================================================================= --
 -- Teleport
 -- ========================================================================================================================================================= --
-local teleportsID = {}	
+local teleportsID = {}
 	teleportsID[120145]		= L["Ancient_Teleport:_Dalaran"]
 	teleportsID[556]		= L["Astral_Recall"]
-	teleportsID[48020]		= L["Demonic_Circle"]	
+	teleportsID[48020]		= L["Demonic_Circle"]
 	teleportsID[53140]		= L["Teleport:_Dalaran"]
 	teleportsID[18960]		= L["Teleport:_Moonglade"]
 	teleportsID[3565]		= L["Teleport:_Darnassus"]
@@ -194,7 +194,7 @@ local teleportsID = {}
 	teleportsID[3561]		= L["Teleport:_Stormwind"]
 	teleportsID[49359]		= L["Teleport:_Theramore"]
 	teleportsID[3566]		= L["Teleport:_Thunder_Bluff"]
-	teleportsID[88342]		= L["Teleport:_Tol_Barad_(Alliance)"]	
+	teleportsID[88342]		= L["Teleport:_Tol_Barad_(Alliance)"]
 	teleportsID[88344]		= L["Teleport:_Tol_Barad_(Horde)"]
 	teleportsID[3563]		= L["Teleport:_Undercity"]
 	teleportsID[3567]		= L["Teleport:_Orgrimmar"]
@@ -203,11 +203,11 @@ local teleportsID = {}
 	teleportsID[132621]		= L["Teleport:_Vale_of_Eternal_BlossomsA"]
 	teleportsID[132627]		= L["Teleport:_Vale_of_Eternal_BlossomsH"]
 	teleportsID[36941]		= L["Toshley's_Station"]
-	teleportsID[23453]		= L["Gadgetzan"]		
+	teleportsID[23453]		= L["Gadgetzan"]
 	teleportsID[71436]		= L["Boots_of_the_Bay"]
-	teleportsID[39937]		= L["Ruby_Slippers"]	
+	teleportsID[39937]		= L["Ruby_Slippers"]
 	teleportsID[8690]		= L["Hearthstone"]
-	teleportsID[94719]		= L["The_Innkeeper's_Daughter"]	
+	teleportsID[94719]		= L["The_Innkeeper's_Daughter"]
 	teleportsID[48129]		= L["Scroll_of_Recall"]
 	teleportsID[60320]		= L["Scroll_of_Recall_II"]
 	teleportsID[60321]		= L["Scroll_of_Recall_III"]
@@ -216,79 +216,79 @@ local teleportsID = {}
 	teleportsID[89158]		= L["Wrap_of_UnityH"]
 	teleportsID[89597]		= L["Baradin's_Wardens_Tabard"]
 	teleportsID[89598]		= L["Hellscream's_Reach_Tabard"]
-	teleportsID[54406]		= L["Dalaran_Signet"]	
+	teleportsID[54406]		= L["Dalaran_Signet"]
 	teleportsID[82674]		= L["The_Last_Relic_of_Argus"]
-	teleportsID[23442]		= L["Everlook"]					
-	teleportsID[36890]		= L["Area_52"]	
-	teleportsID[22564]		= L["Stormpike_Insignia"]		
-	teleportsID[22563]		= L["Frostwolf_Insignia"]	
+	teleportsID[23442]		= L["Everlook"]
+	teleportsID[36890]		= L["Area_52"]
+	teleportsID[22564]		= L["Stormpike_Insignia"]
+	teleportsID[22563]		= L["Frostwolf_Insignia"]
 	teleportsID[75136]		= L["Ethereal_Portal"]
 	teleportsID[41234]		= L["Blessed_Medallion_of_Karabor"]
 	teleportsID[46149]		= L["Darnarian_Scroll_of_Teleportation"]
-	teleportsID[80256]		= L["Potion_of_Deepholm"]	
-	teleportsID[126956]		= L["LORESTONE"]		
-	teleportsID[140295]		= L["KIRIN_TOR_BEACON"] 
+	teleportsID[80256]		= L["Potion_of_Deepholm"]
+	teleportsID[126956]		= L["LORESTONE"]
+	teleportsID[140295]		= L["KIRIN_TOR_BEACON"]
 	teleportsID[140300]		= L["SUNREAVER_BEACON"]
-	teleportsID[59317]		= L["SCHOOL_ARCANE_MASTERY"]	
-	
+	teleportsID[59317]		= L["SCHOOL_ARCANE_MASTERY"]
+
 	teleportsID[139437]		= L["Bizmo_Brewpub"]
 	teleportsID[139432]		= L["Brawlgar_Arena"]
 	teleportsID[147985]		= L["Curious_Bronze_Timepiece_Alundra"]
 	teleportsID[147988]		= L["Curious_Bronze_Timepiece_Lara"]
 	teleportsID[128832]		=  L["Teleport_Jade_Serpent"]
 	teleportsID[145430]		= L["Timelost artifact"]
-	
-	
+
+
 	teleportsID[176248]		= L["Teleport_Stormshield"]
 	teleportsID[176242]		= L["Teleport_Warspear"]
 	teleportsID[171253]		= L["Garrison_Hearthstone"]
 	teleportsID[147988]		= L["Curious_Bronze_Timepiece_Lara"]
 	teleportsID[128832]		=  L["Teleport_Jade_Serpent"]
-	teleportsID[168487]  =L["Home_Away_from_Home"] 
+	teleportsID[168487]  =L["Home_Away_from_Home"]
 	teleportsID[145430]		= L["Timelost artifact"]
 	teleportsID[189838]		= L["Admirals_Compass"]
 	teleportsID[224869] = L["Teleport: Dalaran - Broken Isles"]
-	
+
 	teleportsID[281403] = L["Teleport_Boralus"]
 	teleportsID[281404] = L["Teleport_Daz"]
 	teleportsID[344587] = L["Teleport_Oribos"]
 	teleportsID[395277] = L["Teleport_Valdrakken"]
 	teleportsID[446540] = L["Teleport_Dornogal"]
 	--teleportsID[64024]		= L["Teleport_Conservatory"]
-	
-	
 
-			
+
+
+
 	--teleportsID[120145] = L["Ancient_Dalaran"]
 
 -- ========================================================================================================================================================= --
 -- Teleport Objects IDs
 -- ========================================================================================================================================================= --
 	-- Halls of Origination Transit Device
-	
+
 -- ========================================================================================================================================================= --
 -- Portal IDs
 -- ========================================================================================================================================================= --
 --Remake table with elements {Name = , Continenint = }
 
 local portalsID = {}
-	portalsID[120146] =  L["Ancient_Portal:_Dalaran"]	
-	portalsID[10059] =  L["Stormwind"]	
-	portalsID[11416] =  L["Ironforge"]	
+	portalsID[120146] =  L["Ancient_Portal:_Dalaran"]
+	portalsID[10059] =  L["Stormwind"]
+	portalsID[11416] =  L["Ironforge"]
 	portalsID[11417] =  L["Orgrimmar"]
-	portalsID[11418] =  L["Undercity"]	
+	portalsID[11418] =  L["Undercity"]
 	portalsID[11419] =  L["Darnassus"]
-	portalsID[11420] =  L["Thunder_Bluff"]	
-	portalsID[32266] =  L["Exodar"]	
-	portalsID[32267] =  L["Silvermoon"]	
+	portalsID[11420] =  L["Thunder_Bluff"]
+	portalsID[32266] =  L["Exodar"]
+	portalsID[32267] =  L["Silvermoon"]
 	portalsID[33691] =  L["Shattrath(Alliance)"]
 	portalsID[35717] =  L["Shattrath(Horde)"]
-	portalsID[49360] =  L["Theramore"]	
+	portalsID[49360] =  L["Theramore"]
 	portalsID[49361] =  L["Stonard"]
 	portalsID[53142] =  L["Dalaran"]
 	portalsID[88345] =  L["Tol Barad(Alliance)"]
 	portalsID[88346] =  L["Tol Barad(Horde)"]
-	portalsID[73324] =  L["Jania's_Locket_Dalaran"]	
+	portalsID[73324] =  L["Jania's_Locket_Dalaran"]
 	portalsID[28148] =	L["Karazhan"]
 	portalsID[132626] = L["Vale_of_Eternal_BlossomsH"]
 	portalsID[132620] = L["Vale_of_Eternal_BlossomsA"]
@@ -306,7 +306,7 @@ local portalsID = {}
 	wormholeDestinations = {}
 	wormholeDestinations[67833] = "Northrend"
 	wormholeDestinations[126755] = "Pandaria"
-	
+
 
 -- ========================================================================================================================================================= --
 -- Dropdown Menu Values
@@ -332,7 +332,7 @@ local soundEffectTable = {}
 	soundEffectTable["sgu-turning"]			= {fileName = "Interface\\AddOns\\MageGate\\Sound Files\\SGU Ring Loop.ogg",					length = 3.9770}
 	soundEffectTable["st-tos-trans"]		= {fileName = "Interface\\AddOns\\MageGate\\Sound Files\\Star Trek TOS Transporter.ogg",		length = 5.6306}
 	soundEffectTable["close"]				= {fileName = "Interface\\AddOns\\MageGate\\Sound Files\\Close.ogg",							length = 2.6250}
-	
+
 -- ========================================================================================================================================================= --
 --												startSoundSchemes 
 -- ========================================================================================================================================================= --
@@ -362,7 +362,7 @@ NeooptionTable = {
 										desc = "Show Gate Settings",
 										type = "execute",
 										func = function () MageGateDHD:Show() end
-						
+
 						},
 						play = 		{
 									name = "Play a sound effect",
@@ -502,7 +502,7 @@ LibStub("AceConfig-3.0"):RegisterOptionsTable("MageGate", NeooptionTable, {"mgat
 --------------------------------------------------------------------------------------------------------------------------------------
 local defaults = {
 	profile={
-		PortalClose				=	{	Active = true, 
+		PortalClose				=	{	Active = true,
 										Level	= 4
 									},
 		JustYou					=	true,			--Classic setting
@@ -510,35 +510,35 @@ local defaults = {
 		AutoSumm				=	false,
 		ChevronCount			=	7,		--Classic setting
 		ChevronCounter			=	false, --Classic setting
-		SingleTeleportSetting	=	{	Active	= false, 
-										Sound	= 2, 
-										Level	= 4, 
+		SingleTeleportSetting	=	{	Active	= false,
+										Sound	= 2,
+										Level	= 4,
 										JustYou = true
 									},
-		SinglePortalSetting		=	{	Active			= false, 
-										Abort			= 1, 
-										RingTurning		= 1, 
-										Level			= 4, 
-										JustYou			= true, 
-										FullChev		= false, 
+		SinglePortalSetting		=	{	Active			= false,
+										Abort			= 1,
+										RingTurning		= 1,
+										Level			= 4,
+										JustYou			= true,
+										FullChev		= false,
 										ChevMax			= 7,
 										AnnAbort		= true,
 										AnnDial			= true,
 										AnnLock			= true
 									},
-		WormExit				=	true, 
+		WormExit				=	true,
 		Honest					=   true,
-		Traveller				=	true, 
+		Traveller				=	true,
 		TeleSound				=	2,
 		TeleRing				=	true,		--Classic setting
 		Marker					=	true,			--Classic setting
 --		RingTurning = 1,		--Classic setting
-		On						=	true, 
+		On						=	true,
 		Teleports				=	{	-- Teleports[string of spellID] =	{	Sound	= [true,false], 
 										--										JustYou = [true,false], 
 										--										Level	= [1,2,3,4]
 										--									}
-									},			
+									},
 
 		Portal					=	{	-- Portal[spellID] =	{	Abort			= [1,2,3], 
 										--							RingTurning		= [1,2,3], 
@@ -555,18 +555,18 @@ local defaults = {
 									},
 		InstanceTeleport		=	{	Active	= true,
 										Level	= 4,
-										Sound	= 2								
+										Sound	= 2
 									},
 		BGTeleport				=	{	Active	= true,
 										Level	= 4,
 										Sound	= 2
 									},
-		SummonSFX				=	{	Active	= true, 
+		SummonSFX				=	{	Active	= true,
 										Level	= 4,
 										Sound	= 2
 									},
-		PortalTracking			=	{	Alpha		= 1.0, 
-										WorldMap	= false, 
+		PortalTracking			=	{	Alpha		= 1.0,
+										WorldMap	= false,
 										Minimap		= true
 									},
 		Classic					= false
@@ -585,14 +585,14 @@ function MageGate:FillPortalDefaults()
 	for key, val in pairs(portalsID) do
 		defaults.profile.Portal[key] = {Abort = 1, RingTurning = 1, ChevronCount = 7, ChevronCall = false, Level = 4, UncanonChev = false,
 		AnnounceDialing = true, AnnounceLock = true, AnnounceAbort = true,
-		
+
 		GateCastBar		= {
 								Enabled = true,
 								NumChevrons = 7,
 								Glyphs = {}
 							}
-		
-		
+
+
 		}
 	end
 end
@@ -638,19 +638,19 @@ local main = {
 -- ========================================================================================================================================================= --
 -- GateFxOptions
 -- ========================================================================================================================================================= --
-local GateFxOptions = {	name = L["GATE_SOUND_OP"], 
-						type = "group", 
+local GateFxOptions = {	name = L["GATE_SOUND_OP"],
+						type = "group",
 						handler = MageGate,
-						args = { 
+						args = {
 										Single = {
 											type = "toggle",
-											name = L["SINGLE_STYLE"] , 
-											desc = L["SINGLE_STYLE_DESC_PORTAL"], 
+											name = L["SINGLE_STYLE"] ,
+											desc = L["SINGLE_STYLE_DESC_PORTAL"],
 											order = 1,
 											set = function (info, value) MageGate.db.profile.SinglePortalSetting.Active = value
-													
+
 																				MageGate:PortalToggle(value)
-													
+
 																		 end,
 											get = function ()  return MageGate.db.profile.SinglePortalSetting.Active end
 										},
@@ -680,7 +680,7 @@ local GateFxOptions = {	name = L["GATE_SOUND_OP"],
 										get = function () return MageGate.db.profile.SinglePortalSetting.Level end,
 										values = {"FX", "Music", "Ambience" , "Master"}
 											},
-									
+
 									ChevronCount = {
 										type = "range",
 										name = L["CHEV_RANGE"],
@@ -731,19 +731,54 @@ local GateFxOptions = {	name = L["GATE_SOUND_OP"],
 --SinglePortalSetting = {Active = false, Abort = 1, RingTurning = 1, Level = 4, JustYou = true, FullChev = false, ChevMax = 7},
 };
 
--- Plays portal sound when clicking on a portal.
-local function OnMouseDown(self, button)
-    if button == "RightButton" then
-        local text = GameTooltipTextLeft1:GetText()
-        if text and (text:find("Portal") or text:find("Teleport")) then
-            -- Player clicked on a mage portal
-            print("Departing!")
-            MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Exit-Enter 1.ogg", "Master")
-        end
-    end
+local function PlayTeleportSound()
+    MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Exit-Enter 1.ogg", "Master")
 end
 
-WorldFrame:HookScript("OnMouseDown", OnMouseDown)
+local lastPortalClickPos = nil
+local teleportThreshold = 50 -- yards
+
+local function GetPlayerPosition()
+    local mapID = C_Map.GetBestMapForUnit("player")
+    if not mapID then return nil end
+    local pos = C_Map.GetPlayerMapPosition(mapID, "player")
+    if not pos then return nil end
+    return pos:GetXY()
+end
+
+local function OnPortalClick()
+    MageGate_WaitingForTeleport = true
+    local x, y = GetPlayerPosition()
+    if x and y then
+        lastPortalClickPos = {x = x, y = y, mapID = C_Map.GetBestMapForUnit("player")}
+    end
+    -- Start a timer to check position after a short delay
+    C_Timer.After(0.2, function()
+        if MageGate_WaitingForTeleport and lastPortalClickPos then
+            local mapID = C_Map.GetBestMapForUnit("player")
+            local pos = C_Map.GetPlayerMapPosition(mapID, "player")
+            if pos then
+                local dx = (pos.x - lastPortalClickPos.x) * 1000
+                local dy = (pos.y - lastPortalClickPos.y) * 1000
+                local dist = math.sqrt(dx*dx + dy*dy)
+                if dist > teleportThreshold then
+                    PlayTeleportSound()
+                end
+            end
+            MageGate_WaitingForTeleport = false
+        end
+    end)
+end
+
+-- Plays the portal exit sound when exiting from porting, regardless of loading or distance.
+WorldFrame:HookScript("OnMouseDown", function(self, button, event)
+	local text = GameTooltipTextLeft1:GetText()
+	if button == "RightButton" and text and (text:find("Portal") or text:find("Teleport")) then
+		OnPortalClick()
+	elseif button == "RightButton" and event == "ZONE_CHANGED_NEW_AREA" then
+		goingThroughPortal = true
+	end
+end)
 
 ---This function fills the group GateFxOptions with a sub group for each portal.
 
@@ -756,15 +791,15 @@ end
 function MageGate:FillRingStyles ()
 	--defaults.profile.Portal[key]
 	for key, val in pairs(portalsID) do
-		GateFxOptions.args[tostring(val)] =	{	
+		GateFxOptions.args[tostring(val)] =	{
 			name = val,
 			type = "group",
 			handler = MageGate,
 			disabled = MageGate.db.profile.SinglePortalSetting.Active,
 			args = {
 				GateHeader = {
-					type = "header", 
-					name = L["GATE_SOUNDS"], 
+					type = "header",
+					name = L["GATE_SOUNDS"],
 					order = 1},
 				RingTurning = {
 					type = "select",
@@ -793,7 +828,7 @@ function MageGate:FillRingStyles ()
 						values = {"FX", "Music", "Ambience" , "Master"}
 },
 				GateHeader2 = {
-					type = "header", 
+					type = "header",
 					name = L["CHEV_SETTINGS"], order = 3},
 				ChevronCount = {
 					type = "range",
@@ -815,7 +850,7 @@ function MageGate:FillRingStyles ()
 					get = function() return MageGate.db.profile.Portal[key].ChevronCall end
 				},
 				GateHeader3 = {
-					type = "header", 
+					type = "header",
 					name = L["MESSAGE_SETTINGS"], order = 4},
 				annDialing = {
 					type = "toggle",
@@ -858,7 +893,7 @@ local FeatureOptions = {
 	args = {
 		ADHonest = {type = "toggle", name = L["HONEST"], desc = L["HONEST_DEC"] ,order = 1,set = function (info, val) MageGate.db.profile.Honest = val; end, get = function (info) return MageGate.db.profile.Honest  end   },
 		PortalHeader = {
-			type = "header", 
+			type = "header",
 			name = L["PORTAL_TRACKING_SETTINGS"] ,
 			order = 1},
 --		WorldMap = {type = "toggle",
@@ -884,16 +919,16 @@ local FeatureOptions = {
 			set = function (info,val)MageGate.db.profile.PortalTracking.Alpha = val end,
 			get = function() return MageGate.db.profile.PortalTracking.Alpha end
 		},
-		
+
 		spacer1 = {
 			order = 3,
 			type = "description",
 			name = "\n",
 		},
-		
+
 		SummonHeader = {
-			type = "header", 
-			name = L["SUMMONING_SETTINGS"], 
+			type = "header",
+			name = L["SUMMONING_SETTINGS"],
 			order = 4},
 		AutoSumm = {type = "toggle",
 			name = L["AUTO_SUMM"],
@@ -920,14 +955,14 @@ local FeatureOptions = {
 		SummonSoundLevel=	{
 			type = "select",
 			style = "dropdown",
-			name = L["TELE_SOUND_LEVEL"],  
+			name = L["TELE_SOUND_LEVEL"],
 			desc = L["TELE_SOUND_LEVEL_DESC"],
 			order = 5,
 			set = function(info,value) MageGate.db.profile.SummonSFX.Sound = value end,
 			get = function () return MageGate.db.profile.SummonSFX.Sound end,
 			values = soundLevels
 		},
-		
+
 		Traveller = {type = "toggle",
 			name = L["TRAVELLER_UI"],
 			desc = L["TRAVELLER_DESC"],
@@ -935,19 +970,19 @@ local FeatureOptions = {
 			set = function (info, val) MageGate.db.profile.Traveller = val end,
 			get = function () return MageGate.db.profile.Traveller end},
 		InstanceHeader = {
-			type = "header", 
-			name = L["INST_TELE"], 
+			type = "header",
+			name = L["INST_TELE"],
 			order = 6},
 		InstanceActive = {type = "toggle",
-			name = L["ENABLED"], 
-			desc =L["ENABLED_INST_TELE_DESC"], 
+			name = L["ENABLED"],
+			desc =L["ENABLED_INST_TELE_DESC"],
 			order = 7,
 			set = function (info, val) MageGate.db.profile.InstanceTeleport.Active = val end,
 			get = function () return MageGate.db.profile.InstanceTeleport.Active end},
 		InstanceSound=	{
 			type = "select",
 			style = "dropdown",
-			name = L["SOUNDS"]	, 
+			name = L["SOUNDS"]	,
 			desc = L["INST_TELE_SOUND_DESC"],
 			order = 7,
 			set = function(info,value) MageGate.db.profile.InstanceTeleport.Sound = value end,
@@ -957,7 +992,7 @@ local FeatureOptions = {
 		InstanceSoundLevel=	{
 			type = "select",
 			style = "dropdown",
-			name = L["TELE_SOUND_LEVEL"],  
+			name = L["TELE_SOUND_LEVEL"],
 			desc = L["TELE_SOUND_LEVEL_DESC"],
 			order = 7,
 			set = function(info,value) MageGate.db.profile.InstanceTeleport.Level = value end,
@@ -965,19 +1000,19 @@ local FeatureOptions = {
 			values = soundLevels
 		},
 		BGHeader = {
-			type = "header", 
-			name = L["BG_HEADER"], 
-			order = 8},	
+			type = "header",
+			name = L["BG_HEADER"],
+			order = 8},
 		BGActive = {type = "toggle",
-			name = L["ENABLED"], 
-			desc =L["ENABLED_BG_TELE_DESC"], 
+			name = L["ENABLED"],
+			desc =L["ENABLED_BG_TELE_DESC"],
 			order = 9,
 			set = function (info, val) MageGate.db.profile.BGTeleport.Active = val end,
 			get = function () return MageGate.db.profile.BGTeleport.Active end},
 		BGSound=	{
 			type = "select",
 			style = "dropdown",
-			name = L["SOUNDS"]	, 
+			name = L["SOUNDS"]	,
 			desc = L["BG_TELE_SOUND_DESC"],
 			order = 9,
 			set = function(info,value) MageGate.db.profile.BGTeleport.Sound = value end,
@@ -987,7 +1022,7 @@ local FeatureOptions = {
 		BGSoundLevel=	{
 			type = "select",
 			style = "dropdown",
-			name = L["TELE_SOUND_LEVEL"],  
+			name = L["TELE_SOUND_LEVEL"],
 			desc = L["TELE_SOUND_LEVEL_DESC"],
 			order = 9,
 			set = function(info,value) MageGate.db.profile.BGTeleport.Level = value end,
@@ -997,8 +1032,8 @@ local FeatureOptions = {
 
 			--BGTeleport
 		ExitHeader = {
-			type = "header", 
-			name = L["EXIT_PORTAL_DESC"], 
+			type = "header",
+			name = L["EXIT_PORTAL_DESC"],
 			order = 10},
 		WormExit = {type = "toggle",
 			name = L["WORMHOLE_EXIT_SOUND"],
@@ -1014,19 +1049,19 @@ local FeatureOptions = {
 			get = function () return MageGate.db.profile.CloseExit end},
 
 		PortalCloseHeader = {
-			type = "header", 
-			name = L["PORT_CLOSE"] , 
+			type = "header",
+			name = L["PORT_CLOSE"] ,
 			order = 13},
 		PortalCloseActive = {type = "toggle",
-			name = L["ENABLED"], 
-			desc =L["PORT_CLOSE_EN_DESC"], 
+			name = L["ENABLED"],
+			desc =L["PORT_CLOSE_EN_DESC"],
 			order = 14,
 			set = function (info, val) MageGate.db.profile.PortalClose.Active = val end,
 			get = function () return MageGate.db.profile.PortalClose.Active end},
 		PortalCloseLevel=	{
 			type = "select",
 			style = "dropdown",
-			name = L["TELE_SOUND_LEVEL"],  
+			name = L["TELE_SOUND_LEVEL"],
 			desc = L["TELE_SOUND_LEVEL_DESC"],
 			order = 15,
 			set = function(info,value) MageGate.db.profile.PortalClose.Level = value end,
@@ -1045,18 +1080,18 @@ local teleoptions = {name = L["TELE_SETTINGS"],
 	set = function(item, value) MageGate.db.profile.Teleports[item[#item]] = value end,
 	args = {
 				GlobHeader = {
-						type = "header", 
-						name = "Global", 
+						type = "header",
+						name = "Global",
 						order = 1},
 				Single = {
 						type = "toggle",
-						name = L["SINGLE_STYLE"]  , 
-						desc = L["SINGLE_STYLE_DESC_TELE"] , 
+						name = L["SINGLE_STYLE"]  ,
+						desc = L["SINGLE_STYLE_DESC_TELE"] ,
 						order = 1,
 						set = function (info, value) MageGate.db.profile.SingleTeleportSetting.Active = value
-													
+
 															MageGate:TeleToogle (value)
-													
+
 													 end,
 						get = function ()  return MageGate.db.profile.SingleTeleportSetting.Active end
 					},
@@ -1086,7 +1121,7 @@ local teleoptions = {name = L["TELE_SETTINGS"],
 						set = function(info,value) MageGate.db.profile.SingleTeleportSetting.Sound = value end,
 						get = function () return MageGate.db.profile.SingleTeleportSetting.Sound end,
 						values = {"None","Rings","Asguard","Star Trek TOS","Chrono"}}
-				
+
 			}
 }
 function MageGate:TeleToogle (value)
@@ -1103,7 +1138,7 @@ function MageGate:FillTeleOptions()
 		--	set = function(info,value) MageGate.db.profile.Teleports[key].Sound = value end,
 		--	get = function () return MageGate.db.profile.Teleports[key].Sound end,
 			args = {
-					
+
 				JustYou = {
 						type = "toggle",
 						name = L["TELE_JUST_YOU"] ,
@@ -1113,8 +1148,8 @@ function MageGate:FillTeleOptions()
 						get = function ()  return MageGate.db.profile.Teleports[tostring(key)].JustYou end
 					},
 				SoundHeader = {
-						type = "header", 
-						name = L["SOUNDS"], 
+						type = "header",
+						name = L["SOUNDS"],
 						order = 2},
 				Telesound = {type = "select",
 						style = "dropdown",
@@ -1124,7 +1159,7 @@ function MageGate:FillTeleOptions()
 						set = function(info,value) MageGate.db.profile.Teleports[tostring(key)].Sound = value end,
 						get = function () return MageGate.db.profile.Teleports[tostring(key)].Sound end,
 						values = {"None","Rings","Asguard","Star Trek TOS","Chrono"}},
-				
+
 				TelesoundLevel = {type = "select",
 						style = "dropdown",
 						name = L["TELE_SOUND_LEVEL"],
@@ -1183,10 +1218,10 @@ end
 function MageGate:AddActiveEffect(SoundTable, casterName, spellID, EndEventTable, unitID)
 	 key = casterName.."-"..tostring(spellID)
 	PlaySoundFile(SoundTable[1].FileName,SoundTable[1].Level)
-	ActiveEffect[key] = {	Func = function(eveN, uID, lID, spID) if casterName== UnitName(unitID) and spID == spellID then return true end return false  end, 
-							Timer = MageGate:ScheduleRepeatingTimer("EffectLooper", SoundTable[1].length,key), 
-							Counts = SoundTable[1].Times, 
-							Current = 1, 
+	ActiveEffect[key] = {	Func = function(eveN, uID, lID, spID) if casterName== UnitName(unitID) and spID == spellID then return true end return false  end,
+							Timer = MageGate:ScheduleRepeatingTimer("EffectLooper", SoundTable[1].length,key),
+							Counts = SoundTable[1].Times,
+							Current = 1,
 							SoundData = SoundTable,
 							SoundEffectID = 0}
 	for k, v in pairs (EndEventTable) do
@@ -1215,9 +1250,9 @@ function MageGate:CreateEffectEvent(spellID, casterID, scheme, level, endEvents)
 	soundTable = {}
 	count = 1;
 	for k, v in pairs (startSoundSchemes[scheme]) do
-		soundTable[count] = {	FileName = soundEffectTable[v.Sound].fileName, 
-								length = soundEffectTable[v.Sound].length, 
-								Times = v.Count, 
+		soundTable[count] = {	FileName = soundEffectTable[v.Sound].fileName,
+								length = soundEffectTable[v.Sound].length,
+								Times = v.Count,
 								Level = level}
 		count = count +1
 	end
@@ -1255,7 +1290,7 @@ function isAPortal( spellID )
 	for index, oneId in pairs( portalsID ) do
 		if index == spellID then
 			return true
-		end		
+		end
 	end
 	return false
 end
@@ -1339,12 +1374,12 @@ function MageGate:OnInitialize()
 	self.db = LibStub("AceDB-3.0"):New("MGDATABASE", defaults)
 	MageGate:FillTeleOptions()
 	MageGate:FillRingStyles ()
-	
+
 	local config = LibStub("AceConfig-3.0")
 	config:RegisterOptionsTable("MageGate", NeooptionTable, {"mgate"})
 	local profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	local registry = LibStub("AceConfigRegistry-3.0")
-	
+
 	registry:RegisterOptionsTable("MageGateMain", main)
 	registry:RegisterOptionsTable("Teleport Settings", teleoptions)
 	registry:RegisterOptionsTable("Gate Sound Effects",GateFxOptions)
@@ -1360,13 +1395,13 @@ function MageGate:OnInitialize()
 		teleoptions = dialog:AddToBlizOptions("Teleport Settings", "Teleport Settings", "MageGate"),
 	--	profiles = dialog:AddToBlizOptions("Profiles", "Profiles", "MageGate")
 	}
-	
-	
+
+
 	self:RegisterEvent("UNIT_SPELLCAST_START")
 	self:RegisterEvent("UNIT_SPELLCAST_STOP")
 	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	self:RegisterEvent("UNIT_SPELLCAST_FAILED_QUIET")
-	self:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED") 
+	self:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
 	--self:RegisterEvent("WORLD_MAP_UPDATE")
 	self:RegisterEvent("UI_ERROR_MESSAGE") -- REMOVE
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -1380,17 +1415,17 @@ function MageGate:OnInitialize()
 	self:SecureHook("LeaveBattlefield","BGTeleportEffect")
 	self:HookScript(GameTooltip,"OnUpdate","CIT")
 	self:SecureHook("LFGTeleport","LFGTeleportEffect")
-	
+
 	self:SecureHook(C_SummonInfo,"ConfirmSummon","SummSound")
-	self:RegisterComm("MageGate") 
+	self:RegisterComm("MageGate")
 
 	DHDScroll = CreateFrame("Frame", "PortScroll", MageGateDHD.portals)
 	DHDScroll:SetSize(128, 28)
 	DHDScroll:SetPoint("TOPLEFT", MageGateDHD.portals,10,-60 )
 	DHDScroll:Show()
-		
+
 	MageGateDHD.portals.DHDScroll = DHDScroll
- 
+
 	MageGateDHD.portals:SetScrollChild(DHDScroll)
 	 MageGate:FillDHDScroll()
 	MageGate:FillGlyphButtons()
@@ -1444,7 +1479,7 @@ function MageGate:EngageChevron(index)
 		MGRingFrame.glyph9:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
 		MGRingFrame.glyph9:Show()
 	end
-	
+
 end
 function MageGate:FillGlyphButtons()
 --glyphButtons
@@ -1457,7 +1492,7 @@ glyphButtons[k]:Show()
 		glyphButtons[k]:SetScript("OnClick", function() print(index) end)
 		glyphButtons[k]:SetNormalTexture("Interface\\Addons\\MageGate\\Images\\Glyphs\\Glyph "..k)
 		end
-		
+
 		for k = 1,13 do
 			if (k)%13 == 0 then
 				glyphButtons[k]:SetPoint("TOPLEFT", MageGateDHD.GlyphMGFrame, "TOPLEFT", (22* (12) ),-22*level)
@@ -1493,7 +1528,7 @@ local portalButtons = {}
 	--portalsID[key] = portal name
 	local count = 1
 	for k,v in pairs (portalsID) do
-		portalButtons[count] = {ID = k, 
+		portalButtons[count] = {ID = k,
 			Frame = CreateFrame("Frame","portalbutton"..count, DHDScroll,"PortalListElement")}
 --	
 	if count == 1 then
@@ -1503,8 +1538,8 @@ local portalButtons = {}
 		end
 		portalButtons[count].Frame.but.dest:SetText(v)
 		local key = k
-		portalButtons[count].Frame.but:SetScript("OnClick", function () 
-		
+		portalButtons[count].Frame.but:SetScript("OnClick", function ()
+
 		MageGate:SetUpDHDforPortalID(key)
 		end)
 		count = count + 1
@@ -1518,7 +1553,7 @@ end
 --							}
 function MageGate:ToggleMode()
 	for k,v in pairs (self.optionFrames.PortalTracking) do
-		
+
 	end
 
 end
@@ -1536,7 +1571,7 @@ function MageGate:OnCommReceived (prefix, mess, distr, sender)
 		len = MageGate:TableSize(splitMes)
 		--MageGate:SendCommMessage("MageGate","New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y,MageGate:GateGroup ())
 		if splitMes [1] == "New Portal" then
-		
+
 			caster = splitMes[2]
 			spellID = tonumber(splitMes[3]) ---
 			m = tonumber(splitMes[4])
@@ -1578,11 +1613,11 @@ function MageGate:CIT()
 	if _G["GameTooltipTextLeft1"]:GetText()~= nil then
 		local beg, last = string.find(_G["GameTooltipTextLeft1"]:GetText(), L["Portal1"]);
 		if strfind(strlower(_G["GameTooltipTextLeft1"]:GetText()),L["SOUL_PORTAL"]) ~= nil then
-		
+
 			if beg ~= nil then
 				--print("It is a portalA")
 				goingThroughPortal = true
-			
+
 			else
 				goingThroughPortal = false
 			end
@@ -1610,7 +1645,7 @@ function MageGate:SSL()
 			if inRange then
 			--	print("Stoop GOOD")
 			else
-				
+
 			end
 			goingThroughPortal = true
 			--xxx, yyy = GetPlayerMapPosition("player");
@@ -1696,18 +1731,18 @@ function MageGate:AddOpenPortal(casterName, spellID)
 		--astrolabe:GetUnitPosition(UnitName(casterName), true)
 --		protX				= x;
 --		protY				= y
-	
+
 		--print("New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y)
 		if m ~= nil and x ~= nil and y~= nil then
 			if MageGate:GateGroup () ~="SAY" then
-		
+
 				MageGate:SendCommMessage("MageGate","New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y,MageGate:GateGroup ())
 				--print("New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y)
-			
+
 			end
 			MageGate:AddPortalToMinimap(UnitName(casterName), spellID,m, f, x, y)
 		end
-		
+
 	end
 end
 --- Portal Timer Expired handler.
@@ -1761,11 +1796,11 @@ end
 -- @param x The x coordinates of the caster.
 -- @param y The y coordinates of the caster.
 function MageGate:AddPortalToMinimap(casterName, spellID,m, f, x, y)
-	
+
 	local minimap = CreateFrame("Button", nil, minimapParent)
 	minimap:SetHeight(20)
 	minimap:SetWidth(20)
-	
+
 	minimap.icon = minimap:CreateTexture("BACKGROUND")
 	if spellID == 10059 then
 		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\SW")
@@ -1857,19 +1892,19 @@ function MageGate:AddPortalToMinimap(casterName, spellID,m, f, x, y)
 	--, icon, instanceID, x, y, floatOnEdge)
 	--openPortalList[casterName.."-"..spellID].icon.minimap
 		--astrolabe:PlaceIconOnMinimap(openPortalList[casterName.."-"..spellID].icon.minimap, m, f, x, y)
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 
     -- Try to acquire a waypoint from the frame pool
-  
 
-    
+
+
 
     --waypointMap[waypoint] = point
 
@@ -1898,11 +1933,11 @@ function MageGate:AddPortalToMinimap(casterName, spellID,m, f, x, y)
 	openPortalList[casterName.."-"..spellID].icon = point.minimap;
 	openPortalList[casterName.."-"..spellID].uid = waypoint
     HBDpin:AddMinimapIconWorld(self, openPortalList[casterName.."-"..spellID].icon, m, f, x, y, true)
-	
-	
-	
-	
-	
+
+
+
+
+
 end
 
 -- ========================================================================================================================================================= --
@@ -1922,17 +1957,17 @@ function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 
 
 	if isAPortal(spellID) and (unitID == "player") then
-	
+
 	local destinationName = portalsID[spellID]
 
 		MageGate:Anniversary()
 		if MageGate.db.profile.SinglePortalSetting.Active == false then
 			MageGate:CreateEffectEvent(spellID, unitID, MageGate.db.profile.Portal[spellID].RingTurning, soundLevels[MageGate.db.profile.Portal[spellID].Level], {"UNIT_SPELLCAST_FAILED_QUIET", "UNIT_SPELLCAST_INTERRUPTED", "UNIT_SPELLCAST_STOP", "UNIT_SPELLCAST_SUCCEEDED"})
 			channeling = true;
-			
+
 			--AnnounceDialing
 			if MageGate.db.profile.Portal[spellID].AnnounceDialing then
-			
+
 				if spellID == 120146 then
 					if MageGate.db.profile.Honest == true then
 						self.SendGateMessage(string.format(L["DIALING_START"], L["Ancient_Dalaran"]), spellID); --Displays portal destination
@@ -1942,7 +1977,7 @@ function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 				else
 					self.SendGateMessage(string.format(L["DIALING_START"], destinationName), spellID); --Displays portal destination
 				end
-				
+
 			end
 
 			if MageGate.db.profile.Portal[spellID].ChevronCall == true then  -- Only needs timer if chevron counter is on.
@@ -1988,9 +2023,9 @@ end
 --@param spellID .
 function MageGate:UNIT_SPELLCAST_SUCCEEDED(eveName, unitID, lineID, spellID)
 	--Doesn't cancel timer, it might have stoped itself
-	
+
 	if unitID ~= nil  and spellID ~= nil and UnitName(unitID)~= nil then
-	
+
 	key = UnitName(unitID).."-"..spellID
 	if EndEffectConditions[eveName]~= nil then
 		if EndEffectConditions[eveName][key] == true then
@@ -2035,10 +2070,10 @@ function MageGate:UNIT_SPELLCAST_SUCCEEDED(eveName, unitID, lineID, spellID)
 		if  (unitID == "player") then
 			channeling = false;
 		end
-		
+
 		if MageGate.db.profile.SinglePortalSetting.Active then
 			if MageGate.db.profile.SinglePortalSetting.JustYou then
-				
+
 				if unitID == "player" then
 					MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Kawoosh 1.ogg",soundLevels[MageGate.db.profile.SinglePortalSetting.Level])
 					if unitID == "player" then
@@ -2050,28 +2085,28 @@ function MageGate:UNIT_SPELLCAST_SUCCEEDED(eveName, unitID, lineID, spellID)
 			else
 				MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Kawoosh 1.ogg",soundLevels[MageGate.db.profile.SinglePortalSetting.Level])
 			end
-		
+
 		else
 			if self.db.profile.JustYou then
-			
+
 				if unitID == "player" then
 
 					MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Kawoosh 1.ogg",soundLevels[MageGate.db.profile.Portal[spellID].Level])
 				end
-			else	
+			else
 				MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Kawoosh 1.ogg",soundLevels[MageGate.db.profile.Portal[spellID].Level])
 			end
-		
+
 			if unitID == "player" and  MageGate.db.profile.Portal[spellID].AnnounceLock then
 				self.SendGateMessage(string.format(L["CHEVRON_N_LOCKED"], MageGate.db.profile.Portal[spellID].ChevronCount));
 			end
 		end
-		
-			
+
+
 		end
-		
+
 	end
-	
+
 end
 ---This function is called when a spellcast is interrupted.
 --@param eveName
@@ -2105,9 +2140,9 @@ function MageGate:UNIT_SPELLCAST_INTERRUPTED(eveName, unitID, lineID, spellID)
 		if channeling == false then
 			return
 		end
-		
+
 		if isAPortal(spellID)  then
-		
+
 			if  (unitID == "player")  then
 				channeling = false;
 				if MageGate.db.profile.Portal[spellID].AnnounceAbort and MageGate.db.profile.SinglePortalSetting.Active == false or MageGate.db.profile.SinglePortalSetting.Active and MageGate.db.profile.SinglePortalSetting.AnnAbort then
@@ -2121,39 +2156,39 @@ function MageGate:UNIT_SPELLCAST_INTERRUPTED(eveName, unitID, lineID, spellID)
 			if MageGate.db.profile.SinglePortalSetting.Active then
 				if MageGate.db.profile.SinglePortalSetting.JustYou then
 					if unitID == "player" then
-						if MageGate.db.profile.SinglePortalSetting.Abort == 1  then 
+						if MageGate.db.profile.SinglePortalSetting.Abort == 1  then
 							MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\SG-1 Dial Abort.ogg",soundLevels[MageGate.db.profile.SinglePortalSetting.Level])
 						end
-						if MageGate.db.profile.SinglePortalSetting.Abort == 2  then 
+						if MageGate.db.profile.SinglePortalSetting.Abort == 2  then
 						--Atlantis Dial Abort
 							MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Atlantis Dial Abort.ogg",soundLevels[MageGate.db.profile.SinglePortalSetting.Level])
 						end
-						if MageGate.db.profile.SinglePortalSetting.Abort == 3  then 
+						if MageGate.db.profile.SinglePortalSetting.Abort == 3  then
 						--Universe Dial Abort
 							MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\SGU Abort.ogg",soundLevels[MageGate.db.profile.SinglePortalSetting.Level])
 						end
 					end
 				else
-					MageGate:CreateEffectEvent(spellID, unitID, startSoundSchemes[3+MageGate.db.profile.SinglePortalSetting.Abort], soundLevels[MageGate.db.profile.SinglePortalSetting.Level], {})	
+					MageGate:CreateEffectEvent(spellID, unitID, startSoundSchemes[3+MageGate.db.profile.SinglePortalSetting.Abort], soundLevels[MageGate.db.profile.SinglePortalSetting.Level], {})
 				end
 			else
-		
+
 				if self.db.profile.JustYou then
 					if unitID == "player" then
-						if MageGate.db.profile.Portal[spellID].Abort == 1  then 
+						if MageGate.db.profile.Portal[spellID].Abort == 1  then
 							MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\SG-1 Dial Abort.ogg",soundLevels[MageGate.db.profile.Portal[spellID].Level])
 						end
-						if MageGate.db.profile.Portal[spellID].Abort == 2  then 
+						if MageGate.db.profile.Portal[spellID].Abort == 2  then
 						--Atlantis Dial Abort
 							MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Atlantis Dial Abort.ogg",soundLevels[MageGate.db.profile.Portal[spellID].Level])
 						end
-						if MageGate.db.profile.Portal[spellID].Abort == 3  then 
+						if MageGate.db.profile.Portal[spellID].Abort == 3  then
 						--Atlantis Dial Abort
 							MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\SGU Abort.ogg",soundLevels[MageGate.db.profile.Portal[spellID].Level])
 						end
 					end
 				else
-					MageGate:CreateEffectEvent(spellID, unitID, startSoundSchemes[3+MageGate.db.profile.Portal[spellID].Abort], soundLevels[MageGate.db.profile.Portal[spellID].Level], {})	
+					MageGate:CreateEffectEvent(spellID, unitID, startSoundSchemes[3+MageGate.db.profile.Portal[spellID].Abort], soundLevels[MageGate.db.profile.Portal[spellID].Level], {})
 				end
 			end
 		end
@@ -2249,7 +2284,7 @@ function MageGate:toggleWormExit(info,val)
 	else
 		MageGate:Mprint(L["WORM_EXIT_OFF"])
 	end
-	
+
 end
 
 function MageGate:TravellerToggle(info,val)
@@ -2385,15 +2420,15 @@ local spinTimer = nil
 
 
 function MageGate:DialingForSpin(spellID)
-	
+
 	if MageGate.db.profile.Portal[spellID].GateCastBar.Enabled then
 		if #MageGate.db.profile.Portal[spellID].GateCastBar.Glyphs ~= ageGate.db.profile.Portal[spellID].GateCastBar.NumChevrons then
 			print("Glyphs were not set")
 		else
-		
+
 		end
 	end
-		
+
 		-- = {
 		--						Enabled = true,
 		--						NumChevrons = 7,
