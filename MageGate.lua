@@ -1283,14 +1283,16 @@ end
 -- ========================================================================================================================================================== --
 --									Spell Identifying Functions
 -- ========================================================================================================================================================== --
+local function IsValidSpellID(spellID)
+	return type(spellID) == "number" and not (issecretvalue and issecretvalue(spellID))
+end
+
 --- Indicates if the given spell is a portal spell
 --@param spellID
 --@return true is it is a portal, false if not.
 function isAPortal( spellID )
-	for index, oneId in pairs( portalsID ) do
-		if index == spellID then
-			return true
-		end
+	if IsValidSpellID(spellID) then
+		return portalsID[spellID] ~= nil
 	end
 	return false
 end
@@ -1298,11 +1300,8 @@ end
 --@param spellID a Spell ID.
 --@return boolean.
 function MageGate:isATeleport(spellID)
-	--teleportsID
-	for index, oneId in pairs( teleportsID ) do
-		if index == spellID then
-			return true
-		end
+	if IsValidSpellID(spellID) then
+		return teleportsID[spellID] ~= nil
 	end
 	return false
 end
@@ -1955,6 +1954,9 @@ end
 --@param spellID
 function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 
+	if not IsValidSpellID(spellID) then
+		return
+	end
 
 	if isAPortal(spellID) and (unitID == "player") then
 
@@ -2024,9 +2026,12 @@ end
 function MageGate:UNIT_SPELLCAST_SUCCEEDED(eveName, unitID, lineID, spellID)
 	--Doesn't cancel timer, it might have stoped itself
 
+	if not IsValidSpellID(spellID) then
+		return
+	end
 	if unitID ~= nil  and spellID ~= nil and UnitName(unitID)~= nil then
 
-	key = UnitName(unitID).."-"..spellID
+	local key = UnitName(unitID).."-"..spellID
 	if EndEffectConditions[eveName]~= nil then
 		if EndEffectConditions[eveName][key] == true then
 			if  ActiveEffect[key] ~= nil then
@@ -2114,6 +2119,9 @@ end
 --@param lineID
 --@param spellID
 function MageGate:UNIT_SPELLCAST_INTERRUPTED(eveName, unitID, lineID, spellID)
+	if not IsValidSpellID(spellID) then
+		return
+	end
 	if UnitName(unitID) ~= nil and spellID ~= nil then
 		key = UnitName(unitID).."-"..spellID
 		if EndEffectConditions[eveName]~= nil then
@@ -2200,6 +2208,9 @@ end
 --@param lineID
 --@param spellID
 function MageGate:UNIT_SPELLCAST_FAILED_QUIET(eveName, unitID,  lineID, spellID)
+	if not IsValidSpellID(spellID) then
+		return
+	end
 	if UnitName(unitID) ~= nil and spellID ~= nil then
 		key = UnitName(unitID).."-"..spellID
 		if EndEffectConditions[eveName]~= nil then
