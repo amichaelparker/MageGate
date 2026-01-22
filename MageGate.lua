@@ -241,7 +241,7 @@ local teleportsID = {}
 
 	teleportsID[176248]		= L["Teleport_Stormshield"]
 	teleportsID[176242]		= L["Teleport_Warspear"]
-	teleportsID[171253]		= L["Garrison_Hearthstone"]
+	teleportsID[110560]		= L["Garrison_Hearthstone"]
 	teleportsID[147988]		= L["Curious_Bronze_Timepiece_Lara"]
 	teleportsID[128832]		=  L["Teleport_Jade_Serpent"]
 	teleportsID[168487]  =L["Home_Away_from_Home"]
@@ -254,6 +254,17 @@ local teleportsID = {}
 	teleportsID[344587] = L["Teleport_Oribos"]
 	teleportsID[395277] = L["Teleport_Valdrakken"]
 	teleportsID[446540] = L["Teleport_Dornogal"]
+	teleportsID[188952] = L["Dominated_Hearthstone"]
+	teleportsID[236687] = L["Explosive_Hearthstone"]
+	teleportsID[180290] = L["Night_Fae_Hearthstone"]
+	teleportsID[162973] = L["Greatfather_Winter's_Hearthstone"]
+	teleportsID[163045] = L["Headless_Horseman's_Hearthstone"]
+	teleportsID[193588] = L["Timewalker's_Hearthstone"]
+	teleportsID[208704] = L["Deepweller's_Earthen_Hearthstone"]
+	teleportsID[182773] = L["Necrolord_Hearthstone"]
+	teleportsID[172179] = L["Eternal_Traveler's_Hearthstone"]
+	teleportsID[184353] = L["Kyrian_Hearthstone"]
+	teleportsID[140192] = L["Dalaran_Hearthstone"]
 	--teleportsID[64024]		= L["Teleport_Conservatory"]
 
 
@@ -1412,7 +1423,7 @@ function MageGate:OnInitialize()
 
 	self:SecureHook("AcceptBattlefieldPort","BGTeleportEffect")
 	self:SecureHook("LeaveBattlefield","BGTeleportEffect")
-	self:HookScript(GameTooltip,"OnUpdate","CIT")
+	self:SecureHookScript(GameTooltip,"OnUpdate","CIT")
 	self:SecureHook("LFGTeleport","LFGTeleportEffect")
 
 	self:SecureHook(C_SummonInfo,"ConfirmSummon","SummSound")
@@ -1426,7 +1437,7 @@ function MageGate:OnInitialize()
 	MageGateDHD.portals.DHDScroll = DHDScroll
 
 	MageGateDHD.portals:SetScrollChild(DHDScroll)
-	 MageGate:FillDHDScroll()
+	MageGate:FillDHDScroll()
 	MageGate:FillGlyphButtons()
 end
 function MageGate:SetUpMGRingFrame()
