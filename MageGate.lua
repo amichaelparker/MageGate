@@ -784,7 +784,7 @@ end
 -- Plays the portal exit sound when exiting from porting, regardless of loading or distance.
 WorldFrame:HookScript("OnMouseDown", function(self, button, event)
 	local text = GameTooltipTextLeft1:GetText()
-	if button == "RightButton" and text and (text:find("Portal") or text:find("Teleport")) then
+	if button == "RightButton" and text and (text:find("Portal") or text:find("Teleport")) and not issecretvalue(text) then
 		OnPortalClick()
 	elseif button == "RightButton" and event == "ZONE_CHANGED_NEW_AREA" then
 		goingThroughPortal = true
@@ -1620,9 +1620,10 @@ function MageGate:LFGTeleportEffect()
 end
 function MageGate:CIT()
 --print(_G["GameTooltipTextLeft1"]:GetText())
-	if _G["GameTooltipTextLeft1"]:GetText()~= nil then
-		local beg, last = string.find(_G["GameTooltipTextLeft1"]:GetText(), L["Portal1"]);
-		if strfind(strlower(_G["GameTooltipTextLeft1"]:GetText()),L["SOUL_PORTAL"]) ~= nil then
+	local text = _G["GameTooltipTextLeft1"]:GetText()
+	if text and not (issecretvalue and issecretvalue(text)) then
+		local beg, last = string.find(text, L["Portal1"]);
+		if strfind(strlower(text),L["SOUL_PORTAL"]) ~= nil then
 
 			if beg ~= nil then
 				--print("It is a portalA")
@@ -1637,8 +1638,9 @@ end
 
 --TurnOrActionStart
 function MageGate:CCL()
-if _G["GameTooltipTextLeft1"]:GetText()~= nil then
-		local beg, last = string.find(_G["GameTooltipTextLeft1"]:GetText(), L["Portal1"]);
+	local text = _G["GameTooltipTextLeft1"]:GetText()
+	if text and not (issecretvalue and issecretvalue(text)) then
+		local beg, last = string.find(text, L["Portal1"]);
 		if inRange ==false then
 		end
 	end
@@ -1648,8 +1650,9 @@ local yyy = 0
 function MageGate:SSL()
 	--GameTooltip:ClearLines()
 	--GameTooltip:Show()
-	if _G["GameTooltipTextLeft1"]:GetText()~= nil then
-		local beg, last = string.find(_G["GameTooltipTextLeft1"]:GetText(), L["Portal1"]);
+	local text = _G["GameTooltipTextLeft1"]:GetText()
+	if text and not (issecretvalue and issecretvalue(text)) then
+		local beg, last = string.find(text, L["Portal1"]);
 		if beg ~= nil then
 			--print("stopped Is portal")
 			if inRange then
@@ -1680,7 +1683,7 @@ end
 -- @param motion Not used but needed.
 function MageGatemarkerOnEnter(self, motion)
 
-	name = select(1,GetSpellInfo(self.special))
+	local name = select(1,GetSpellInfo(self.special))
 	local beg, last = string.find(name, L["PORTAL_SEP"]);
 
 	local destinationName =  ""
