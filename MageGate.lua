@@ -169,6 +169,7 @@ local goingThroughPortal	= false
 local openPortalList		= {} --Used to store opened portals for tracking.
 local ActiveEffect			= {}
 local EndEffectConditions	= {}
+local debugSpells			= false -- /mgate debug: print the ID of every spell you cast
 -- ========================================================================================================================================================= --
 -- Teleport
 -- ========================================================================================================================================================= --
@@ -349,6 +350,15 @@ local NeooptionTable = {
 		handler = MageGate,
 		type	= 'group',
 		args = {
+						debug =		{
+									name = "Debug spell IDs",
+									desc = "Print the spell ID of every spell you cast (for adding Forever/new-patch spells)",
+									type = "execute",
+									func = function()
+										debugSpells = not debugSpells
+										MageGate:Mprint("spell ID debug " .. (debugSpells and "ON" or "OFF"))
+									end
+						},
 						play = 		{
 									name = "Play a sound effect",
 									desc = L["PLAY_DESC"],
@@ -1195,8 +1205,34 @@ end
 -- ========================================================================================================================================================== --
 --									Spell Identifying Functions
 -- ========================================================================================================================================================== --
+local function IsSecret(value)
+	return issecretvalue and issecretvalue(value) or false
+end
+
 local function IsValidSpellID(spellID)
-	return type(spellID) == "number" and not (issecretvalue and issecretvalue(spellID))
+	return type(spellID) == "number" and not IsSecret(spellID)
+end
+
+--- Should a UNIT_SPELLCAST_* event be handled at all?
+-- In combat (Midnight / Forever), another player's spell ID or even their
+-- NAME can arrive as a secret value. We build table keys from both
+-- ("Name-spellID") and compare names, and either one throws on a secret.
+-- Portals are rarely cast mid-fight, so we simply skip those events.
+local function ShouldHandle(unitID, spellID)
+	if not IsValidSpellID(spellID) then return false end
+	local name = unitID and UnitName(unitID)
+	return name ~= nil and not IsSecret(name)
+end
+
+-- /mgate debug: print the ID of every spell you cast. WoW: Forever may use
+-- different spell IDs than retail for the same teleport or portal, so this
+-- is how to find the right numbers for the tables at the top of the file.
+local function DebugSpell(event, unitID, spellID)
+	if debugSpells and unitID == "player" and IsValidSpellID(spellID) then
+		local info = C_Spell.GetSpellInfo(spellID)
+		MageGate:Mprint(("%s: %s = %d (%s)"):format(event, info and info.name or "?", spellID,
+			portalsID[spellID] and "known portal" or teleportsID[spellID] and "known teleport" or "not in MageGate's tables"))
+	end
 end
 
 --- Indicates if the given spell is a portal spell
@@ -1252,7 +1288,22 @@ end
 -- ========================================================================================================================================================== --
 ---------------------------------------------------- Ace3 Functions ----------------------------------------------------
 -- ========================================================================================================================================================== --
+--- Remove table entries for spells that don't exist in THIS client.
+-- Retail and WoW: Forever share one codebase, but Forever has no Dornogal
+-- portal and retail has no use for Forever-only spells. Without this, the
+-- options screens list dozens of spells you can never cast.
+local function PruneMissingSpells(spellTable)
+	if not (C_Spell and C_Spell.DoesSpellExist) then return end
+	for spellID in pairs(spellTable) do
+		if not C_Spell.DoesSpellExist(spellID) then
+			spellTable[spellID] = nil   -- removing the current key during pairs() is allowed in Lua
+		end
+	end
+end
+
 function MageGate:OnInitialize()
+	PruneMissingSpells(teleportsID)
+	PruneMissingSpells(portalsID)
 
 	MageGate:FillTeleDefaults()
 	MageGate:FillPortalDefaults()
@@ -1486,7 +1537,8 @@ end
 --@param spellID
 function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 
-	if not IsValidSpellID(spellID) then
+	DebugSpell("START", unitID, spellID)
+	if not ShouldHandle(unitID, spellID) then
 		return
 	end
 
@@ -1543,7 +1595,8 @@ end
 function MageGate:UNIT_SPELLCAST_SUCCEEDED(eveName, unitID, lineID, spellID)
 	--Doesn't cancel timer, it might have stoped itself
 
-	if not IsValidSpellID(spellID) then
+	DebugSpell("SUCCEEDED", unitID, spellID)
+	if not ShouldHandle(unitID, spellID) then
 		return
 	end
 	if unitID ~= nil  and spellID ~= nil and UnitName(unitID)~= nil then
@@ -1636,7 +1689,8 @@ end
 --@param lineID
 --@param spellID
 function MageGate:UNIT_SPELLCAST_INTERRUPTED(eveName, unitID, lineID, spellID)
-	if not IsValidSpellID(spellID) then
+	DebugSpell("INTERRUPTED", unitID, spellID)
+	if not ShouldHandle(unitID, spellID) then
 		return
 	end
 	if UnitName(unitID) ~= nil and spellID ~= nil then
@@ -1725,7 +1779,8 @@ end
 --@param lineID
 --@param spellID
 function MageGate:UNIT_SPELLCAST_FAILED_QUIET(eveName, unitID,  lineID, spellID)
-	if not IsValidSpellID(spellID) then
+	DebugSpell("FAILED_QUIET", unitID, spellID)
+	if not ShouldHandle(unitID, spellID) then
 		return
 	end
 	if UnitName(unitID) ~= nil and spellID ~= nil then
@@ -1815,7 +1870,9 @@ function MageGate.SendGateMessage(message, spellID)
 	if(chat_type == "SAY") then
 		print(string.format(message))
 	else
-		SendChatMessage(message, chat_type)
+		-- The global SendChatMessage only survives as a deprecated wrapper.
+		local send = (C_ChatInfo and C_ChatInfo.SendChatMessage) or SendChatMessage
+		send(message, chat_type)
 	end
 end
 
