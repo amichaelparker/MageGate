@@ -153,7 +153,6 @@
 -- Add War Within teleports and portals.
 -- ====================================================================================================== --
 local G						= getfenv(0)
-local protX, protY			= nil,nil;
 MageGate					= LibStub("AceAddon-3.0"):NewAddon("MageGate","AceConsole-3.0","AceComm-3.0", "AceEvent-3.0", "AceTimer-3.0","AceHook-3.0")
 local L						= LibStub("AceLocale-3.0"):GetLocale("MageGate")
 
@@ -165,8 +164,6 @@ local AceConfig				= LibStub("AceConfig-3.0")
 --  Fields
 -- ========================================================================================================================================================= --
 --local ringCount				= 0;
-local tooltip				= CreateFrame("GameTooltip", "MGTooltip", UIParent, "GameTooltipTemplate")
-tooltip.lines				= {}
 local channeling			= false;
 local goingThroughPortal	= false
 local openPortalList		= {} --Used to store opened portals for tracking.
@@ -237,10 +234,7 @@ local teleportsID = {}
 	teleportsID[176248]		= L["Teleport_Stormshield"]
 	teleportsID[176242]		= L["Teleport_Warspear"]
 	teleportsID[110560]		= L["Garrison_Hearthstone"]
-	teleportsID[147988]		= L["Curious_Bronze_Timepiece_Lara"]
-	teleportsID[128832]		=  L["Teleport_Jade_Serpent"]
 	teleportsID[168487]  =L["Home_Away_from_Home"]
-	teleportsID[145430]		= L["Timelost artifact"]
 	teleportsID[189838]		= L["Admirals_Compass"]
 	teleportsID[224869] = L["Teleport: Dalaran - Broken Isles"]
 
@@ -260,12 +254,6 @@ local teleportsID = {}
 	teleportsID[172179] = L["Eternal_Traveler's_Hearthstone"]
 	teleportsID[184353] = L["Kyrian_Hearthstone"]
 	teleportsID[140192] = L["Dalaran_Hearthstone"]
-	--teleportsID[64024]		= L["Teleport_Conservatory"]
-
-
-
-
-	--teleportsID[120145] = L["Ancient_Dalaran"]
 
 -- ========================================================================================================================================================= --
 -- Teleport Objects IDs
@@ -377,80 +365,6 @@ NeooptionTable = {
 											type = "execute",
 											func = function ()  InterfaceOptionsFrame_OpenToCategory(MageGate.optionFrames.main)  end
 									}
---				sfx =		{
---									name = "Sound Effects",
---									desc = L["SOUND_FX_DESC"],
---									type = "execute",
---									func = "SoundEffects"
---							},
---				settings =	{
---									name = "MageGate Settings",
---									desc = L["PRINT_SETTINGS"],
---									type = "execute",
---									func = "PrintSettings"
---							},
---				autosum  =  {
---									name = "Auto Summon",
---									desc = L["AUTO_SUMMON_DESC"],
---									type = "execute",
---									func = "AutoSummon"
---							},
---				abortfx  =  {
---									name = "Abort Effect",
---									desc = string.format(L["ABORT_FX_DESC"], "sg1", "sga", "sgu"),
---									type = "toggle",
---									set = function(info, val) 
---										if val == "sg1" then
---											MageGate.db.profile.AbortStyle = 1
---										end
---										if val == "sga" then
---											MageGate.db.profile.AbortStyle = 2
---										end
---										if val == "sgu" then
---											MageGate.db.profile.AbortStyle = 3
---										end
---										 end,
---									get = function() return MageGate.db.profile.AbortStyle end
---							},
---				marker  =   {
---									name = "Marker Toggle",
---									desc = L["MARKER_TOGGLE"],
---									type = "toggle",
---									set  = "MarkerToggle",
---									get  = function () return MARKER end
---							},
---				chevcount = {
---									name = "Print chevron count",
---									desc = string.format(L["CHEV_COUNT_TOGGLE"]),
---									type = "toggle",
---									set  = "ChangeChevronCounter",
---									get  = function () return self.db.profile.ChevronCounter end
---							},
---				wormexit =  {
---									name = "Toggle Worm exit sfx",
---									desc = string.format(L["WORM_EXIT_DESC"]),
---									type = "toggle",
---									set  = "toggleWormExit",
---									get  = function () return self.db.profile.WormExit end
---							},
---				caster =	{
---									name = "Toggle caster requirement",
---									desc = L["CASTER_TOGGLE"],
---									type = "toggle",
---									set  = "ToogleJustYou",
---									get  = function () return self.db.profile.JustYou end
---							},
----,
---				chevrons  = {
---									name = "Number of chevrons",
---									desc = L["CHEVRONS_COUNT_DESC"],
---									type = "range",
---									min  = 7,
---									max  = 9,
---									step = 1,
---									set  = "SetChevronCount",
---									get  = function () return self.db.profile.ChevronCount end
---							},
 				}
 			}
 
@@ -725,8 +639,6 @@ local GateFxOptions = {	name = L["GATE_SOUND_OP"],
 				}
 
 								}
-
-
 
 --SinglePortalSetting = {Active = false, Abort = 1, RingTurning = 1, Level = 4, JustYou = true, FullChev = false, ChevMax = 7},
 };
@@ -1327,17 +1239,7 @@ function MageGate:ChevronNLocked(spell)
 	self.SendGateMessage(string.format(L["CHEVRON_N_ENGAGED"], nTicCount))
 	nTicCount = nTicCount + 1
 end
---TODO
-function MageGate:WormholeSoundLoop(key)
 
-
-end
-
-function MageGate:Soundcatch(...)
-	a1, a2 = ...;
---	print(a1)
-	--print(a2)
-end
 
 --- Called when a portal is cancelled.
 --Stops the chevron message printing.
@@ -1346,22 +1248,6 @@ function MageGate:CancelChevrons()
 	pTimer = nil
 	channeling = false
 	nTicCount = 1
-end
-function MageGate:toggleEnabledOnInterface(val)
-	for key, va in pairs(portalsID) do
-		if val == true then
-			GateFxOptions.args[tostring(va)].disabled = true
-		else
-			GateFxOptions.args[tostring(va)].disabled = false
-		end
-	end
-	for key, va in pairs(teleportsID) do
-		if val == true then
-			teleoptions.args[tostring(va)].disabled = true
-		else
-			teleoptions.args[tostring(va)].disabled = false
-		end
-	end
 end
 -- ========================================================================================================================================================== --
 ---------------------------------------------------- Ace3 Functions ----------------------------------------------------
@@ -1397,18 +1283,12 @@ function MageGate:OnInitialize()
 
 
 	self:RegisterEvent("UNIT_SPELLCAST_START")
-	self:RegisterEvent("UNIT_SPELLCAST_STOP")
 	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	self:RegisterEvent("UNIT_SPELLCAST_FAILED_QUIET")
 	self:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
-	--self:RegisterEvent("WORLD_MAP_UPDATE")
-	self:RegisterEvent("UI_ERROR_MESSAGE") -- REMOVE
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:SecureHook("TurnOrActionStart","CCL")
 	self:SecureHook("TurnOrActionStop","SSL")
 
-	self:SecureHook("PlaySoundFile","Soundcatch")
-	self:SecureHook("PlaySound","Soundcatch")
 
 	self:SecureHook("AcceptBattlefieldPort","BGTeleportEffect")
 	self:SecureHook("LeaveBattlefield","BGTeleportEffect")
@@ -1418,29 +1298,13 @@ function MageGate:OnInitialize()
 	self:SecureHook(C_SummonInfo,"ConfirmSummon","SummSound")
 	self:RegisterComm("MageGate")
 end
---GateCastBar		= {
---								Enabled = true,
---								NumChevrons = 7,
---								Glyphs = {}
---							}
-function MageGate:ToggleMode()
-	for k,v in pairs (self.optionFrames.PortalTracking) do
 
-	end
-
-end
-function MageGate:OnEnable()
-end
-
-function MageGate:OnDisable()
-end
 
 function MageGate:OnCommReceived (prefix, mess, distr, sender)
 	local yourName = UnitName("player")
 
 	if sender ~= yourName then
 		splitMes = MageGate:MessageBreaker(mess)
-		len = MageGate:TableSize(splitMes)
 		--MageGate:SendCommMessage("MageGate","New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y,MageGate:GateGroup ())
 		if splitMes [1] == "New Portal" then
 
@@ -1481,14 +1345,12 @@ function MageGate:LFGTeleportEffect()
 	end
 end
 function MageGate:CIT()
---print(_G["GameTooltipTextLeft1"]:GetText())
 	local text = _G["GameTooltipTextLeft1"]:GetText()
 	if text and not (issecretvalue and issecretvalue(text)) then
 		local beg, last = string.find(text, L["Portal1"]);
 		if strfind(strlower(text),L["SOUL_PORTAL"]) ~= nil then
 
 			if beg ~= nil then
-				--print("It is a portalA")
 				goingThroughPortal = true
 
 			else
@@ -1498,37 +1360,16 @@ function MageGate:CIT()
 	end
 end
 
---TurnOrActionStart
-function MageGate:CCL()
-	local text = _G["GameTooltipTextLeft1"]:GetText()
-	if text and not (issecretvalue and issecretvalue(text)) then
-		local beg, last = string.find(text, L["Portal1"]);
-		if inRange ==false then
-		end
-	end
-end
-local xxx = 0
-local yyy = 0
+--- Hook on TurnOrActionStop: fires when you release a mouse click in the 3D
+-- world. If the thing under the cursor was a portal (its tooltip title
+-- contains the localized word for "Portal"), remember that, so
+-- PLAYER_ENTERING_WORLD can play the wormhole exit sound on arrival.
 function MageGate:SSL()
-	--GameTooltip:ClearLines()
-	--GameTooltip:Show()
 	local text = _G["GameTooltipTextLeft1"]:GetText()
+	-- Check for a secret value FIRST: calling string functions on one errors.
 	if text and not (issecretvalue and issecretvalue(text)) then
-		local beg, last = string.find(text, L["Portal1"]);
-		if beg ~= nil then
-			--print("stopped Is portal")
-			if inRange then
-			--	print("Stoop GOOD")
-			else
-
-			end
-			goingThroughPortal = true
-			--xxx, yyy = GetPlayerMapPosition("player");
-		else
-			goingThroughPortal = false
-		end
+		goingThroughPortal = string.find(text, L["Portal1"]) ~= nil
 	end
-	inRange = true
 end
 -- ========================================================================================================================================================= --
 ---------------------------------------------------- Portal Tracking Functions ----------------------------------------------------
@@ -1652,16 +1493,6 @@ end
 
 --- Toggle Minimap Markers.
 -- This function turns whether markers for portals are shown on the minimap on or off.
--- @param info Ace3 parameter.
--- @param val Ace3 parameter.  Unused.
-function MageGate:MarkerToggle(info,val)
-	self.db.profile.Marker = self.db.profile.Marker == false
-	if self.db.profile.Marker then
-		MageGate:Mprint(L["MARKER_ON"])
-	else
-		MageGate:Mprint(L["MARKER_OFF"])
-	end
-end
 --- Add a portal to the Minimap.
 --
 -- @param casterName The name of the caster.
@@ -1768,20 +1599,9 @@ function MageGate:AddPortalToMinimap(casterName, spellID,m, f, x, y)
 	--openPortalList[casterName.."-"..spellID].icon.minimap
 		--astrolabe:PlaceIconOnMinimap(openPortalList[casterName.."-"..spellID].icon.minimap, m, f, x, y)
 
+-- Try to acquire a waypoint from the frame pool
 
-
-
-
-
-
-
-
-    -- Try to acquire a waypoint from the frame pool
-
-
-
-
-    --waypointMap[waypoint] = point
+--waypointMap[waypoint] = point
 
     point.m = m
     point.f = f
@@ -1809,17 +1629,11 @@ function MageGate:AddPortalToMinimap(casterName, spellID,m, f, x, y)
 	openPortalList[casterName.."-"..spellID].uid = waypoint
     HBDpin:AddMinimapIconWorld(self, openPortalList[casterName.."-"..spellID].icon, m, f, x, y, true)
 
-
-
-
-
 end
 
 -- ========================================================================================================================================================= --
 --													Event Handlers
 -- ========================================================================================================================================================= --
-
-
 
 ---This function is the handler for a spellcast starting.
 --@param eveName
@@ -1838,7 +1652,6 @@ function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 
 	local destinationName = portalsID[spellID]
 
-		MageGate:Anniversary()
 		if MageGate.db.profile.SinglePortalSetting.Active == false then
 			MageGate:CreateEffectEvent(spellID, unitID, MageGate.db.profile.Portal[spellID].RingTurning, soundLevels[MageGate.db.profile.Portal[spellID].Level], {"UNIT_SPELLCAST_FAILED_QUIET", "UNIT_SPELLCAST_INTERRUPTED", "UNIT_SPELLCAST_STOP", "UNIT_SPELLCAST_SUCCEEDED"})
 			channeling = true;
@@ -1879,20 +1692,6 @@ function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 		end
 	-- ! Timer
 	end
-end
-inRange = true
-function MageGate:UI_ERROR_MESSAGE(info, mess)
-
-	inRange = false
-end
---@param eveName
---@param unitID
---@param spell
---@param rank
---@param lineID
---@param spellID
-function MageGate:UNIT_SPELLCAST_STOP(eveName, unitID, lineID, spellID)
-
 end
 ---This function handles the event of a unit successfully casting a spell.
 --@param eveName .
@@ -2134,68 +1933,13 @@ function MageGate:PLAYER_ENTERING_WORLD()
 		goingThroughPortal = false;
 	end
 end
----
-function MageGate:WORLD_MAP_UPDATE()
-	if goingThroughPortal and self.db.profile.WormExit then
-		local map = C_Map.GetBestMapForUnit("player")
-		local position = C_Map.GetPlayerMapPosition(map, "player");
-		posX, posY = position.GetXY()
-			if xxx == posX and posY == yyy then
-			MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Exit-Enter 1.ogg", "Master")
-			GameTooltip:ClearLines()
-			goingThroughPortal = false;
-			end
-		else
-			goingThroughPortal = false;
-	end
-end
 
 -- ==========================================================================================================================================================--
 --													Classic Settings Functions
 -- ==========================================================================================================================================================--
 
-
-function MageGate:ToogleJustYou()
-	self.db.profile.JustYou = self.db.profile.JustYou == false
-	if self.db.profile.JustYou then
-		MageGate:Mprint(L["CASTER_YOU"])
-	else
-		MageGate:Mprint(L["CASTER_ALL"])
-	end
-end
--- @param info, val  not really used.
-function MageGate:toggleWormExit(info,val)
-	self.db.profile.WormExit = self.db.profile.WormExit == false
-	if self.db.profile.WormExit then
-		MageGate:Mprint(L["WORM_EXIT_ON"])
-	else
-		MageGate:Mprint(L["WORM_EXIT_OFF"])
-	end
-
-end
-
-function MageGate:TravellerToggle(info,val)
-	self.db.profile.Traveller = self.db.profile.Traveller == false
-	if self.db.profile.Traveller == true then
-		MageGate:Mprint(L["self.db.profile.Traveller_OFF"])
-	else
-		MageGate:Mprint(L["self.db.profile.Traveller_ON"])
-	end
-end
-function MageGate:ChangeChevronCounter(info, val)
-	if val then
-		MageGate.db.profile.ChevronCounter = true
-		MageGate:Mprint(string.format(L["CHEV_COUNT_ON"]))
-	else
-		MageGate.db.profile.ChevronCounter = false
-		MageGate:Mprint(string.format(L["CHEV_COUNT_OFF"]))
-	end
-end
 -- Graphics
 
-function MageGate:ShowGateChanneling ()
-	CastingBarFrame:Hide()
-end
 
 -- ========================================================================================================================================================== --
 --									Utility Functions 
@@ -2203,12 +1947,6 @@ end
 
 --- Check to see if it is Mage Gate's anniversary.
 -- August 10.
-function MageGate:Anniversary()
-	--weekday, month, day, year = CalendarGetDate();
-	--if month == 8 and day == 10 then
-	--	MageGate:Mprint(L["ANNIVERSARY"])
-	--end
-end
 --- A function that does a more formal printout for Mage Gate.
 --@param s the input string.
 function MageGate:Mprint(s)
@@ -2261,13 +1999,6 @@ end
 function MageGate:DoFx(fx, level)
 	PlaySoundFile(fx, level)
 end
-function MageGate:TableSize(tab)
-	count =0
-	for key,val in pairs(tab) do
-		count= count +1
-	end
-	return count
-end
 ---
 --@param str A string.
 --@return eke A table containing the parts of the input string.
@@ -2279,21 +2010,6 @@ function MageGate:MessageBreaker(str)
 		eke[count]=string.sub(temp,0,string.find(temp,"~")-1)
 		count = count+1
 		temp = string.sub(temp,string.find(temp,"~")+1,string.len(temp))
-	end
-	eke[count] = temp
-	return eke
-end
----Another message break functions.
---@param str the string to break up.
---@return eke the table that holds the parts of str.
-function MageGate:MessageBreaker2(str)
-	temp = str
-	eke = {}
-	count = 1
-	while string.find(temp,"-")~= nil do
-		eke[count]=string.sub(temp,0,string.find(temp,"-")-1)
-		count = count+1
-		temp = string.sub(temp,string.find(temp,"-")+1,string.len(temp))
 	end
 	eke[count] = temp
 	return eke
