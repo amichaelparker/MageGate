@@ -297,9 +297,6 @@ local portalsID = {}
 	portalsID[344597] = L["Portal_Oribos"]
 	portalsID[395289] = L["Portal_Valdrakken"]
 	portalsID[446534] = L["Portal_Dornogal"]
-	wormholeDestinations = {}
-	wormholeDestinations[67833] = "Northrend"
-	wormholeDestinations[126755] = "Pandaria"
 
 
 -- ========================================================================================================================================================= --
@@ -347,7 +344,7 @@ local startSoundSchemes = {}
 -- ========================================================================================================================================================= --
 --					Command Line Option Table
 -- ========================================================================================================================================================= --
-NeooptionTable = {
+local NeooptionTable = {
 		name	= "MageGate",
 		handler = MageGate,
 		type	= 'group',
@@ -363,7 +360,7 @@ NeooptionTable = {
 											name = "Show control frame",
 											desc = L["SHOW"] ,
 											type = "execute",
-											func = function ()  InterfaceOptionsFrame_OpenToCategory(MageGate.optionFrames.main)  end
+											func = function () Settings.OpenToCategory("MageGate") end
 									}
 				}
 			}
@@ -648,6 +645,7 @@ local function PlayTeleportSound()
 end
 
 local lastPortalClickPos = nil
+local waitingForTeleport = false
 local teleportThreshold = 50 -- yards
 
 local function GetPlayerPosition()
@@ -659,14 +657,14 @@ local function GetPlayerPosition()
 end
 
 local function OnPortalClick()
-    MageGate_WaitingForTeleport = true
+    waitingForTeleport = true
     local x, y = GetPlayerPosition()
     if x and y then
         lastPortalClickPos = {x = x, y = y, mapID = C_Map.GetBestMapForUnit("player")}
     end
     -- Start a timer to check position after a short delay
     C_Timer.After(0.2, function()
-        if MageGate_WaitingForTeleport and lastPortalClickPos then
+        if waitingForTeleport and lastPortalClickPos then
             local mapID = C_Map.GetBestMapForUnit("player")
             local pos = C_Map.GetPlayerMapPosition(mapID, "player")
             if pos then
@@ -677,18 +675,21 @@ local function OnPortalClick()
                     PlayTeleportSound()
                 end
             end
-            MageGate_WaitingForTeleport = false
+            waitingForTeleport = false
         end
     end)
 end
 
 -- Plays the portal exit sound when exiting from porting, regardless of loading or distance.
-WorldFrame:HookScript("OnMouseDown", function(self, button, event)
+-- Right-clicking a portal/teleport object in the world: start watching for
+-- the teleport (see OnPortalClick).
+WorldFrame:HookScript("OnMouseDown", function(self, button)
+	if button ~= "RightButton" then return end
 	local text = GameTooltipTextLeft1:GetText()
-	if button == "RightButton" and text and (text:find("Portal") or text:find("Teleport")) and not issecretvalue(text) then
+	-- Check for a secret value BEFORE calling string methods on it; doing it
+	-- the other way round throws in combat.
+	if text and not (issecretvalue and issecretvalue(text)) and (text:find("Portal") or text:find("Teleport")) then
 		OnPortalClick()
-	elseif button == "RightButton" and event == "ZONE_CHANGED_NEW_AREA" then
-		goingThroughPortal = true
 	end
 end)
 
@@ -870,8 +871,8 @@ local FeatureOptions = {
 			name = L["TELE_SOUND_LEVEL"],
 			desc = L["TELE_SOUND_LEVEL_DESC"],
 			order = 5,
-			set = function(info,value) MageGate.db.profile.SummonSFX.Sound = value end,
-			get = function () return MageGate.db.profile.SummonSFX.Sound end,
+			set = function(info,value) MageGate.db.profile.SummonSFX.Level = value end,
+			get = function () return MageGate.db.profile.SummonSFX.Level end,
 			values = soundLevels
 		},
 
@@ -1105,7 +1106,8 @@ function MageGate:EffectLooper(key)
 		MageGate:CancelTimer(ActiveEffect[key].Timer, true)
 		ActiveEffect[key].Current = ActiveEffect[key].Current + 1
 		if ActiveEffect[key].SoundData[ActiveEffect[key].Current] ~= nil then
-			bla ,ActiveEffect[key].SoundEffectID = PlaySoundFile(ActiveEffect[key].SoundData[ActiveEffect[key].Current].FileName,ActiveEffect[key].SoundData[ActiveEffect[key].Current].Level)
+			local _
+			_, ActiveEffect[key].SoundEffectID = PlaySoundFile(ActiveEffect[key].SoundData[ActiveEffect[key].Current].FileName,ActiveEffect[key].SoundData[ActiveEffect[key].Current].Level)
 			ActiveEffect[key].Counts = ActiveEffect[key].SoundData[ActiveEffect[key].Current].Times
 			ActiveEffect[key].Timer = MageGate:ScheduleRepeatingTimer("EffectLooper", ActiveEffect[key].SoundData[ActiveEffect[key].Current].length,key)
 		else
@@ -1128,7 +1130,7 @@ end
 --@param EndEventTable A table containing the names of the events that can end this effect.
 --@param unitID The unitID of the caster of the spell.
 function MageGate:AddActiveEffect(SoundTable, casterName, spellID, EndEventTable, unitID)
-	 key = casterName.."-"..tostring(spellID)
+	local key = casterName.."-"..tostring(spellID)
 	PlaySoundFile(SoundTable[1].FileName,SoundTable[1].Level)
 	ActiveEffect[key] = {	Func = function(eveN, uID, lID, spID) if casterName== UnitName(unitID) and spID == spellID then return true end return false  end,
 							Timer = MageGate:ScheduleRepeatingTimer("EffectLooper", SoundTable[1].length,key),
@@ -1159,8 +1161,8 @@ end
 --@endEvents A table of the name of the events that can end the effect.
 function MageGate:CreateEffectEvent(spellID, casterID, scheme, level, endEvents)
 	--Compile SoundTable
-	soundTable = {}
-	count = 1;
+	local soundTable = {}
+	local count = 1
 	for k, v in pairs (startSoundSchemes[scheme]) do
 		soundTable[count] = {	FileName = soundEffectTable[v.Sound].fileName,
 								length = soundEffectTable[v.Sound].length,
@@ -1172,24 +1174,22 @@ function MageGate:CreateEffectEvent(spellID, casterID, scheme, level, endEvents)
 end
 
 --TODO
+-- Index = position in the "Summon sound" dropdown (which has no "None").
+-- The old code was off by one: picking Asguard played Rings, and Rings
+-- played nothing.
+local SUMMON_SOUNDS = { "rings", "asguard-tele", "st-tos-trans", "chrono" }
+
 function MageGate:SummSound()
---Special thanks to Garshaw of Mok`Nathal for this idea.
-	area = GetSummonConfirmAreaName()
+	-- Special thanks to Garshaw of Mok`Nathal for this idea.
 	if self.db.profile.Traveller then
-		self.SendGateMessage(string.format(L["CONFIRM_SUMMON"]))
+		self.SendGateMessage(L["CONFIRM_SUMMON"])
 	end
-	if MageGate.db.profile.SummonSFX.Sound == 2 then
-		MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Rings 1.ogg",soundLevels[MageGate.db.profile.SummonSFX.Level])
+	local sfx = MageGate.db.profile.SummonSFX
+	local sound = soundEffectTable[SUMMON_SOUNDS[sfx.Sound]]
+	-- sfx.Active is the "summon sound on" checkbox, which was never checked before.
+	if sfx.Active and sound then
+		MageGate:DoFx(sound.fileName, soundLevels[sfx.Level])
 	end
-	if MageGate.db.profile.SummonSFX.Sound == 3 then
-		MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Asguard Teleporter.ogg",soundLevels[MageGate.db.profile.SummonSFX.Level])
-	end
-	if MageGate.db.profile.SummonSFX.Sound == 4 then
-		MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\Star Trek TOS Transporter.ogg",soundLevels[MageGate.db.profile.SummonSFX.Level])
-	end
-	if MageGate.db.profile.SummonSFX.Sound == 5 then
-		MageGate:DoFx("Interface\\AddOns\\MageGate\\Sound Files\\chronosphere.ogg",soundLevels[MageGate.db.profile.SummonSFX.Level])
-	end--{"None","Rings","Asguard","Star Trek TOS","Chrono"}
 end
 
 -- ========================================================================================================================================================== --
@@ -1202,7 +1202,7 @@ end
 --- Indicates if the given spell is a portal spell
 --@param spellID
 --@return true is it is a portal, false if not.
-function isAPortal( spellID )
+local function isAPortal( spellID )
 	if IsValidSpellID(spellID) then
 		return portalsID[spellID] ~= nil
 	end
@@ -1300,43 +1300,16 @@ function MageGate:OnInitialize()
 end
 
 
-function MageGate:OnCommReceived (prefix, mess, distr, sender)
-	local yourName = UnitName("player")
-
-	if sender ~= yourName then
-		splitMes = MageGate:MessageBreaker(mess)
-		--MageGate:SendCommMessage("MageGate","New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y,MageGate:GateGroup ())
-		if splitMes [1] == "New Portal" then
-
-			caster = splitMes[2]
-			spellID = tonumber(splitMes[3]) ---
-			m = tonumber(splitMes[4])
-			f = tonumber(splitMes[5])
-			x = tonumber(splitMes[6])
-			y = tonumber(splitMes[7])
-			portalKey = caster.."-"..spellID
-			if openPortalList[portalKey] == nil then
-				openPortalList[portalKey] = {	duration = 60,
-												spent = 0,
-												sfxTimer = 0,
-												icon ={}}
-				MageGate:ScheduleTimer("PortalExpire",60,UnitName(caster).."-"..spellID)
-				if self.db.profile.Marker then
-					MageGate:AddPortalToMinimap(caster, spellID,m, f, x, y )
-				end
-			end
-		end
-	end
-end
-
--- ========================================================================================================================================================= --
----------------------------------------------------- Hook Functions ----------------------------------------------------
--- ========================================================================================================================================================= --
----The hook handler for AcceptBattlefieldPort.
--- Added in MageGate version 7.1.   8/21/2012.
-function MageGate:BGTeleportEffect()
-	if MageGate.db.profile.BGTeleport.Active then
-	MageGate:CreateEffectEvent("bgteleport", "player", MageGate.db.profile.BGTeleport.Sound+7, soundLevels[MageGate.db.profile.BGTeleport.Level], {})
+--- Another MageGate user in the group saw a portal open: pin it for us too.
+-- Message: "New Portal~<caster>~<spellID>~<uiMapID>~<mapType>~<x>~<y>"
+function MageGate:OnCommReceived(prefix, message, distribution, sender)
+	if sender == UnitName("player") then return end
+	local parts = MageGate:MessageBreaker(message)
+	if parts[1] ~= "New Portal" then return end
+	local caster, spellID = parts[2], tonumber(parts[3])
+	local mapID, x, y = tonumber(parts[4]), tonumber(parts[6]), tonumber(parts[7])
+	if caster and spellID and mapID and x and y then
+		MageGate:TrackPortal(caster, spellID, mapID, x, y)
 	end
 end
 function MageGate:LFGTeleportEffect()
@@ -1375,260 +1348,129 @@ end
 ---------------------------------------------------- Portal Tracking Functions ----------------------------------------------------
 -- ========================================================================================================================================================= --
 
-function MageGateMinimap_OnClick(self)
-	--print("Casted by "..self.caster..".  Remainind time: "..tostring(60-(time()-openPortalList[self.caster.."-"..self.special].spent)))
-	MageGate:Mprint(string.format(L["CASTER_REMAINING"],self.caster, 60-(time()-openPortalList[self.caster.."-"..self.special].spent)))
-end
---- On cursor entering an icon of a portal on the Minimap.
--- The function is called when the cursor enters an icon on the minimap.
--- It will fill in a tooltip by that portal displaying where that portal goes.
--- @param self The icon that the cursor is over. 
--- @param motion Not used but needed.
-function MageGatemarkerOnEnter(self, motion)
+-- How portal tracking works:
+--  * When you (or a group member) finish casting a portal, we note where YOU
+--    are standing (you're right next to the caster) and pin an icon on the
+--    minimap there for the portal's 60-second lifetime.
+--  * We also whisper the position to the group over the addon channel, so
+--    other MageGate users get the pin too (see OnCommReceived).
+--  * When it expires, if you're still standing near it, the "gate closing"
+--    sound plays.
+-- openPortalList[key] = { caster, spellID, openedAt, mapID, x, y, pin }
+-- key = "<caster name>-<spellID>"
 
-	local name = select(1,GetSpellInfo(self.special))
-	local beg, last = string.find(name, L["PORTAL_SEP"]);
+local PORTAL_LIFETIME = 60 -- seconds a mage portal stays open
 
-	local destinationName =  ""
-	if beg == nil then
-		--Wormhole
-		destinationName=	wormholeDestinations[spellID]
+-- Minimap picture for each portal destination (files in Images\).
+-- Destinations not listed get a plain pin.
+local PORTAL_ICONS = {
+	[10059]  = "SW",    [11416]  = "IF",    [11419]  = "Dar",   [32266]  = "Exa",
+	[49360]  = "Thera", [11417]  = "Org",   [11418]  = "UC",    [11420]  = "Thun",
+	[49361]  = "Sto",   [32267]  = "SM",    [53142]  = "Dal",   [120146] = "A Dal",
+	[33691]  = "Shatt", [35717]  = "Shatt", [132620] = "ev",    [132626] = "ev",
+	[88345]  = "TBA",   [88346]  = "TBA",   [176244] = "TBA",   [176246] = "TBA",
+}
 
-	else
-		destinationName =	string.sub(name, last+2)
+--- Click a pin: who opened it and how long it has left.
+local function PortalPin_OnClick(self)
+	local portal = openPortalList[self.portalKey]
+	if portal then
+		MageGate:Mprint(string.format(L["CASTER_REMAINING"], portal.caster,
+			math.max(0, PORTAL_LIFETIME - (time() - portal.openedAt))))
 	end
+end
+
+--- Hover a pin: where does it go?
+local function PortalPin_OnEnter(self)
 	GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-	GameTooltip:SetText(destinationName)
+	GameTooltip:SetText(portalsID[self.spellID] or "?")
 	GameTooltip:Show()
 end
---- On cursor leaving an icon of a portal on the Minimap.
--- The function is called when the cursor leaves an icon on the minimap.
--- It will hide the tooltip that was shown for the portal.
--- @param selfl The icon that the cursor is over. 
--- @param motion Not used but needed.
-function MageGate:markerOnLeave(selfl, motion)
+
+local function PortalPin_OnLeave()
 	GameTooltip:Hide()
 end
 
---- Checks if the player is near a portal in the portal table.
---TODO.
---@return boolean.
+--- Called as a portal expires: play the closing sound if you're near it.
 function MageGate:IsNearPortal(portalKey)
-	x1, y1, m1, f1 = HBD:GetPlayerWorldPosition()
-HBD:GetPlayerWorldPosition()
-HBD:GetZoneDistance(oZone, oX, oY, dZone, dX, dY)
-	if x1 ~= nil and y1~= nil then
-	HBD:GetZoneDistance(m1, f1, x1, y1, openPortalList[portalKey].icon.m, openPortalList[portalKey].icon.f, openPortalList[portalKey].icon.x, openPortalList[portalKey].icon.y)
-	--HBD:GetWorldDistance
-	dist, xDelta, yDelta = 	HBD:GetZoneDistance(m1, f1, x1, y1, openPortalList[portalKey].icon.m, openPortalList[portalKey].icon.f, openPortalList[portalKey].icon.x, openPortalList[portalKey].icon.y)
-		if dist ~= nil then
-			if dist < 60 then
-				if MageGate.db.profile.PortalClose.Active then
-					PlaySoundFile(soundEffectTable["close"].fileName,soundLevels[MageGate.db.profile.PortalClose.Level])
-				end
-			end
-		end
-	end
-end
---- Adds a portal to the table of portals.
---
--- @param casterName The name of the person who made the portal.
--- @param spellID The spell ID of the portal spell that was cast.
-function MageGate:AddOpenPortal(casterName, spellID)
---Step 1:  Add it to the table.
---Step 2:  Create a timer, if the duration is not negative.
-	if openPortalList[UnitName(casterName).."-"..spellID] == nil then
-		openPortalList[UnitName(casterName).."-"..spellID] = { duration = 60, spent = time(), sfxTimer = 0, icon ={}}
-		MageGate:ScheduleTimer("PortalExpire",63,UnitName(casterName).."-"..spellID)
---HBD:GetUnitWorldPosition(unitID)
---HBD:GetPlayerZonePosition()
---HBD:GetWorldCoordinatesFromZone(x, y, zone, level)
-		local x, y, m, f	= HBD:GetPlayerZonePosition();
-		--astrolabe:GetUnitPosition(UnitName(casterName), true)
---		protX				= x;
---		protY				= y
-
-		--print("New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y)
-		if m ~= nil and x ~= nil and y~= nil then
-			if MageGate:GateGroup () ~="SAY" then
-
-				MageGate:SendCommMessage("MageGate","New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y,MageGate:GateGroup ())
-				--print("New Portal~"..UnitName(casterName).."~"..spellID.."~"..m.."~"..f.."~"..x.."~"..y)
-
-			end
-			MageGate:AddPortalToMinimap(UnitName(casterName), spellID,m, f, x, y)
-		end
-
-	end
-end
---- Portal Timer Expired handler.
--- This function is called when a portal's lifetime timer goes off.  This function will
--- remove the portal from the minimap and from openPortalList.
--- @param id The ID of the portal.
-function MageGate:PortalExpire(id)
-		MageGate:IsNearPortal(id)
-		--TODO remove minimap icon
-		--astrolabe:RemoveIconFromMinimap(openPortalList[id].icon.minimap)--Unknown glitch
-		--ClearWaypoint openPortalList[casterName.."-"..spellID].uid 
-
-		HBDpin.RemoveMinimapIcon(self, openPortalList[id].icon);
-		openPortalList[id]=nil
-end
-function MageGate:TogglePortalHide(valu)
-	for id, val in pairs (openPortalList) do
-		if valu == true then
-
-			openPortalList[id].icon.show_minimap	=true
-			openPortalList[id].icon.minimap:Show()
-			--TODO place minimap icon
-			--astrolabe:PlaceIconOnMinimap(openPortalList[id].icon.minimap, openPortalList[id].icon.m, openPortalList[id].icon.f, openPortalList[id].icon.x, openPortalList[id].icon.y)
-
-		else
-		--TODO remove minimap icon
-			--astrolabe:RemoveIconFromMinimap(openPortalList[id].icon.minimap)
-
-		end
+	local portal = openPortalList[portalKey]
+	if not (portal and MageGate.db.profile.PortalClose.Active) then return end
+	local px, py, playerMap = HBD:GetPlayerZonePosition()
+	if not (px and playerMap) then return end
+	-- Distance in yards between two (map, x, y) points; nil if the maps
+	-- can't be compared (e.g. you've left the continent).
+	local dist = HBD:GetZoneDistance(playerMap, px, py, portal.mapID, portal.x, portal.y)
+	if dist and dist < 60 then
+		PlaySoundFile(soundEffectTable["close"].fileName, soundLevels[MageGate.db.profile.PortalClose.Level])
 	end
 end
 
---- Toggle Minimap Markers.
--- This function turns whether markers for portals are shown on the minimap on or off.
---- Add a portal to the Minimap.
---
--- @param casterName The name of the caster.
--- @param spellID The spellID of the portal.
--- @param m
--- @param f
--- @param x The x coordinates of the caster.
--- @param y The y coordinates of the caster.
-function MageGate:AddPortalToMinimap(casterName, spellID,m, f, x, y)
+--- A portal cast by `casterUnit` just finished: track it and tell the group.
+function MageGate:AddOpenPortal(casterUnit, spellID)
+	local casterName = UnitName(casterUnit)
+	if not casterName or openPortalList[casterName .. "-" .. spellID] then return end
+	-- GetPlayerZonePosition returns x, y (0-1 across the zone map), the
+	-- zone's uiMapID, and its map type.
+	local x, y, mapID, mapType = HBD:GetPlayerZonePosition()
+	if not (x and mapID) then return end
+	MageGate:TrackPortal(casterName, spellID, mapID, x, y)
+	local channel = MageGate:GateGroup()
+	if channel ~= "SAY" then
+		-- Field order kept as-is so older MageGate versions can still read it.
+		MageGate:SendCommMessage("MageGate", "New Portal~" .. casterName .. "~" .. spellID .. "~"
+			.. mapID .. "~" .. (mapType or 0) .. "~" .. x .. "~" .. y, channel)
+	end
+end
 
-	local minimap = CreateFrame("Button", nil, minimapParent)
-	minimap:SetHeight(20)
-	minimap:SetWidth(20)
+--- Shared by our own sightings and ones reported by group members.
+function MageGate:TrackPortal(casterName, spellID, mapID, x, y)
+	local key = casterName .. "-" .. spellID
+	if openPortalList[key] then return end
+	openPortalList[key] = { caster = casterName, spellID = spellID, openedAt = time(), mapID = mapID, x = x, y = y }
+	-- A few seconds of slack so the closing sound lines up with the real portal.
+	MageGate:ScheduleTimer("PortalExpire", PORTAL_LIFETIME + 3, key)
+	MageGate:AddPortalToMinimap(key)
+end
 
-	minimap.icon = minimap:CreateTexture("BACKGROUND")
-	if spellID == 10059 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\SW")
+function MageGate:PortalExpire(key)
+	local portal = openPortalList[key]
+	if not portal then return end
+	MageGate:IsNearPortal(key)
+	if portal.pin then
+		HBDpin:RemoveMinimapIcon(self, portal.pin)
+		portal.pin:Hide()
 	end
-	if spellID == 11416 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\IF")
-	end
-	if spellID == 11419 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Dar")
-	end
-	if spellID == 32266 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Exa")
-	end
-	if spellID == 49360 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Thera")
-	end
-	if spellID == 88345 or spellID == 88346 or spellID == 176246 or spellID == 176244 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\TBA")
-	end
-	if spellID == 35717 or spellID == 33691  then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Shatt")
-	end
-	if spellID == 132626 or spellID == 132620 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\ev")
-	end
-	if spellID == 11417 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Org")
-	end
-	if spellID == 11418 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\UC")
-	end
-	if spellID == 11420 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Thun")
-	end
-	if spellID == 49361 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Sto")
-	end
-	if spellID == 32267 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\SM")
-	end
-	if spellID == 53142 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\Dal")
-	end
-	if spellID == 120146 then
-		minimap.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\A Dal")
-	end
-	minimap.special = spellID
-	minimap.caster = casterName
-	minimap:SetScript("OnEnter",  MageGatemarkerOnEnter)
-    minimap:SetScript("OnLeave", markerOnLeave)
-	minimap:SetScript("OnClick", MageGateMinimap_OnClick)
-	minimap.icon:SetPoint("CENTER", 0, 0)
-	minimap:SetAlpha(MageGate.db.profile.PortalTracking.Alpha)
-	minimap.icon:SetHeight(12)
-	minimap.icon:SetWidth(12)
-	minimap.arrow = minimap:CreateTexture("BACKGROUND")
-	minimap.arrow:SetTexture("Interface\\AddOns\\MageGate\\Images\\Chevron Arrow")
-	minimap.arrow:SetPoint("CENTER", 0 ,0)
-	minimap.arrow:SetHeight(40)
-	minimap.arrow:SetWidth(40)
-	minimap.arrow:Hide()
+	openPortalList[key] = nil
+end
 
-	point											= {}
-	point.m											= m
-    point.f											= f
-    point.x											= x
-    point.y											= y
-    point.show_world								= true
-    point.show_minimap								= true
-	point.minimap									= minimap
-	openPortalList[casterName.."-"..spellID].icon	= point
-	openPortalList[casterName.."-"..spellID].icon.minimap = minimap
-	openPortalList[casterName.."-"..spellID].icon.minimap.special = spellID
-	openPortalList[casterName.."-"..spellID].icon.minimap.caster = casterName
-  --  point.minimap.callbacks = callbacks and callbacks.minimap
-	if  MageGate.db.profile.PortalTracking.Minimap == false then
-		minimap.icon:Hide()
+--- Options toggle "show on minimap": show/hide the pins that exist right now.
+function MageGate:TogglePortalHide(show)
+	for _, portal in pairs(openPortalList) do
+		if portal.pin then portal.pin:SetShown(show) end
 	end
-	--print("ADD")
-	--openPortalList[casterName.."-"..spellID].icon.minimap
-	--function pins:AddMinimapIconMF(ref, icon, mapID, mapFloor, x, y, floatOnEdge)
-		--	HBDpin.AddMinimapIconMF(self, 
-		--	point,				--icon
-		--	m, 		--mapID
-		--	f, 															--mapFloor
-			--x, 															--x
-		--	y, 															--y
-		--	false)														--floatOnEdge)
-	--, icon, instanceID, x, y, floatOnEdge)
-	--openPortalList[casterName.."-"..spellID].icon.minimap
-		--astrolabe:PlaceIconOnMinimap(openPortalList[casterName.."-"..spellID].icon.minimap, m, f, x, y)
+end
 
--- Try to acquire a waypoint from the frame pool
-
---waypointMap[waypoint] = point
-
-    point.m = m
-    point.f = f
-    point.x = x
-    point.y = y
-    point.show_world = show_world
-    point.show_minimap = show_minimap
-    point.callbacks = callbacks
-   -- point.worldmap.callbacks = callbacks and callbacks.world
-    point.minimap.callbacks = callbacks and callbacks.minimap
-
-    -- Process the callbacks table to put distances in a consumable format
-
-	-- Clear the state for callbacks
-	point.state = nil
-	point.lastdist = nil
-
-    -- Link the actual frames back to the waypoint object
-    point.minimap.point = point
-   -- point.worldmap.point = point
-    point.uid = waypoint
-
-    -- Place the waypoint
-	openPortalList[casterName.."-"..spellID].icon = point.minimap;
-	openPortalList[casterName.."-"..spellID].uid = waypoint
-    HBDpin:AddMinimapIconWorld(self, openPortalList[casterName.."-"..spellID].icon, m, f, x, y, true)
-
+function MageGate:AddPortalToMinimap(key)
+	local portal = openPortalList[key]
+	local pin = CreateFrame("Button", nil, Minimap)
+	pin:SetSize(20, 20)
+	pin.icon = pin:CreateTexture(nil, "BACKGROUND")
+	pin.icon:SetSize(12, 12)
+	pin.icon:SetPoint("CENTER")
+	local iconFile = PORTAL_ICONS[portal.spellID]
+	if iconFile then
+		pin.icon:SetTexture("Interface\\AddOns\\MageGate\\Images\\" .. iconFile)
+	end
+	pin.portalKey, pin.spellID = key, portal.spellID
+	pin:SetScript("OnEnter", PortalPin_OnEnter)
+	pin:SetScript("OnLeave", PortalPin_OnLeave)
+	pin:SetScript("OnClick", PortalPin_OnClick)
+	pin:SetAlpha(MageGate.db.profile.PortalTracking.Alpha)
+	pin:SetShown(MageGate.db.profile.PortalTracking.Minimap)
+	portal.pin = pin
+	-- HereBeDragons places the pin on the minimap and keeps it at that spot
+	-- as you move: (ref, frame, uiMapID, x, y, showInParentZone, floatOnEdge)
+	HBDpin:AddMinimapIconMap(self, pin, portal.mapID, portal.x, portal.y, false, true)
 end
 
 -- ========================================================================================================================================================= --
@@ -1673,7 +1515,7 @@ function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 
 			if MageGate.db.profile.Portal[spellID].ChevronCall == true then  -- Only needs timer if chevron counter is on.
 
-				local name, rank, icon, castTime, minRange, maxRange = GetSpellInfo(spellID)
+				local castTime = C_Spell.GetSpellInfo(spellID).castTime
 
 				--print (castTime .. " / " .. MageGate.db.profile.Portal[spellID].ChevronCount..  " * 1000")--  castTime / (MageGate.db.profile.Portal[spellID].ChevronCount*1000))
 				pTimer = MageGate:ScheduleRepeatingTimer("ChevronNLocked", castTime / (MageGate.db.profile.Portal[spellID].ChevronCount*1000), spellID )
@@ -1686,7 +1528,7 @@ function MageGate:UNIT_SPELLCAST_START(eveName, unitID, lineID, spellID)
 				self.SendGateMessage(string.format(L["DIALING_START"], destinationName)); --Displays portal destination
 			end
 			if  MageGate.db.profile.SinglePortalSetting.FullChev == true then  -- Only needs timer if chevron counter is on.
-				local name, rank, icon, castTime, isFunnel, powerType, emyt, minRange, maxRange = GetSpellInfo(spell)
+				local castTime = C_Spell.GetSpellInfo(spellID).castTime
 				pTimer = MageGate:ScheduleRepeatingTimer("ChevronNLocked", castTime / ( MageGate.db.profile.SinglePortalSetting.ChevMax*1000), spellID )
 			end
 		end
@@ -1798,7 +1640,7 @@ function MageGate:UNIT_SPELLCAST_INTERRUPTED(eveName, unitID, lineID, spellID)
 		return
 	end
 	if UnitName(unitID) ~= nil and spellID ~= nil then
-		key = UnitName(unitID).."-"..spellID
+		local key = UnitName(unitID).."-"..spellID
 		if EndEffectConditions[eveName]~= nil then
 			if  ActiveEffect[key] ~= nil then
 				if EndEffectConditions[eveName][key] == true then
@@ -1852,7 +1694,7 @@ function MageGate:UNIT_SPELLCAST_INTERRUPTED(eveName, unitID, lineID, spellID)
 						end
 					end
 				else
-					MageGate:CreateEffectEvent(spellID, unitID, startSoundSchemes[3+MageGate.db.profile.SinglePortalSetting.Abort], soundLevels[MageGate.db.profile.SinglePortalSetting.Level], {})
+					MageGate:CreateEffectEvent(spellID, unitID, 3+MageGate.db.profile.SinglePortalSetting.Abort, soundLevels[MageGate.db.profile.SinglePortalSetting.Level], {})
 				end
 			else
 
@@ -1871,7 +1713,7 @@ function MageGate:UNIT_SPELLCAST_INTERRUPTED(eveName, unitID, lineID, spellID)
 						end
 					end
 				else
-					MageGate:CreateEffectEvent(spellID, unitID, startSoundSchemes[3+MageGate.db.profile.Portal[spellID].Abort], soundLevels[MageGate.db.profile.Portal[spellID].Level], {})
+					MageGate:CreateEffectEvent(spellID, unitID, 3+MageGate.db.profile.Portal[spellID].Abort, soundLevels[MageGate.db.profile.Portal[spellID].Level], {})
 				end
 			end
 		end
@@ -1887,10 +1729,10 @@ function MageGate:UNIT_SPELLCAST_FAILED_QUIET(eveName, unitID,  lineID, spellID)
 		return
 	end
 	if UnitName(unitID) ~= nil and spellID ~= nil then
-		key = UnitName(unitID).."-"..spellID
+		local key = UnitName(unitID).."-"..spellID
 		if EndEffectConditions[eveName]~= nil then
 			if EndEffectConditions[eveName][key] == true then
-				if ActiveEffect[key].Func ~= nil then
+				if ActiveEffect[key] and ActiveEffect[key].Func ~= nil then
 					if ActiveEffect[key].Func(eveName, unitID, lineID, spellID) == true then
 						MageGate:CancelTimer(ActiveEffect[key].Timer,true)
 						ActiveEffect[key] = nil
@@ -1914,7 +1756,7 @@ function MageGate:UNIT_SPELLCAST_FAILED_QUIET(eveName, unitID,  lineID, spellID)
 			if self.db.profile.ChevronCounter == true then
 				self:CancelChevrons();
 			end
-			MageGate:CreateEffectEvent(spellID, unitID, startSoundSchemes[3+MageGate.db.profile.Portal[spellID].Abort], MageGate.db.profile.Portal[spellID].Level, {})
+			MageGate:CreateEffectEvent(spellID, unitID, 3+MageGate.db.profile.Portal[spellID].Abort, soundLevels[MageGate.db.profile.Portal[spellID].Level], {})
 		end
 	end
 end
@@ -2003,9 +1845,9 @@ end
 --@param str A string.
 --@return eke A table containing the parts of the input string.
 function MageGate:MessageBreaker(str)
-	temp = str
-	eke = {}
-	count = 1
+	local temp = str
+	local eke = {}
+	local count = 1
 	while string.find(temp,"~")~= nil do
 		eke[count]=string.sub(temp,0,string.find(temp,"~")-1)
 		count = count+1
