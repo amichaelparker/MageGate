@@ -1363,6 +1363,17 @@ function MageGate:OnCommReceived(prefix, message, distribution, sender)
 		MageGate:TrackPortal(caster, spellID, mapID, x, y)
 	end
 end
+
+-- ========================================================================================================================================================= --
+---------------------------------------------------- Hook Functions ----------------------------------------------------
+-- ========================================================================================================================================================= --
+---The hook handler for AcceptBattlefieldPort (and LeaveBattlefield).
+-- Added in MageGate version 7.1.   8/21/2012.
+function MageGate:BGTeleportEffect()
+	if MageGate.db.profile.BGTeleport.Active then
+		MageGate:CreateEffectEvent("bgteleport", "player", MageGate.db.profile.BGTeleport.Sound+7, soundLevels[MageGate.db.profile.BGTeleport.Level], {})
+	end
+end
 function MageGate:LFGTeleportEffect()
 	if MageGate.db.profile.InstanceTeleport.Active == true then
 		MageGate:CreateEffectEvent("lgfteleport", "player", MageGate.db.profile.InstanceTeleport.Sound+7, soundLevels[MageGate.db.profile.InstanceTeleport.Level], {})
