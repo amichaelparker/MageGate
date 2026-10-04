@@ -172,11 +172,6 @@ local goingThroughPortal	= false
 local openPortalList		= {} --Used to store opened portals for tracking.
 local ActiveEffect			= {}
 local EndEffectConditions	= {}
-local DHDScroll			= nil
-local portalButtons = {}
-local glyphButtons = {}
-local currentPortal = 0
-local GateSpinTimer = nil
 -- ========================================================================================================================================================= --
 -- Teleport
 -- ========================================================================================================================================================= --
@@ -369,12 +364,6 @@ NeooptionTable = {
 		handler = MageGate,
 		type	= 'group',
 		args = {
-						dhd	 =		{ name = "Show Gate Settings",
-										desc = "Show Gate Settings",
-										type = "execute",
-										func = function () MageGateDHD:Show() end
-
-						},
 						play = 		{
 									name = "Play a sound effect",
 									desc = L["PLAY_DESC"],
@@ -1428,134 +1417,7 @@ function MageGate:OnInitialize()
 
 	self:SecureHook(C_SummonInfo,"ConfirmSummon","SummSound")
 	self:RegisterComm("MageGate")
-
-	DHDScroll = CreateFrame("Frame", "PortScroll", MageGateDHD.portals)
-	DHDScroll:SetSize(128, 28)
-	DHDScroll:SetPoint("TOPLEFT", MageGateDHD.portals,10,-60 )
-	DHDScroll:Show()
-
-	MageGateDHD.portals.DHDScroll = DHDScroll
-
-	MageGateDHD.portals:SetScrollChild(DHDScroll)
-	MageGate:FillDHDScroll()
-	MageGate:FillGlyphButtons()
 end
-function MageGate:SetUpMGRingFrame()
-	MGRingFrame.art:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Syms.blp")
-	MGRingFrame.outer:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Stargate Outer.blp")
-	--GateSpinTimer
-	--TODO Light chevrons
-end
-function MageGate:SetUpDHDforPortalID(pid)
-	currentPortal = pid
-	--TODO  Change Selected Chevrons.
-	--TODO  Change Enabled.
-	--TODO  Change entered Dial Sequence
-end
-function MageGate:EngageChevron(index)
-	if index == 1 then
-		MGRingFrame.glyph1:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph1:Show()
-	end
-	if index == 2 then
-		MGRingFrame.glyph2:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph2:Show()
-	end
-	if index == 3 then
-		MGRingFrame.glyph3:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph3:Show()
-	end
-	if index == 4 then
-		MGRingFrame.glyph4:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph4:Show()
-	end
-	if index == 5 then
-		MGRingFrame.glyph5:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph5:Show()
-	end
-	if index == 6 then
-		MGRingFrame.glyph6:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph6:Show()
-	end
-	if index == 7 then
-		MGRingFrame.glyph7:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph7:Show()
-	end
-	if index == 8 then
-		MGRingFrame.glyph8:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph8:Show()
-	end
-	if index == 9 then
-		MGRingFrame.glyph9:SetTexture("Interface\\AddOns\\MageGate\\Images\\Star Gates\\Classic\\Chevron "..index.." Engaged.blp")
-		MGRingFrame.glyph9:Show()
-	end
-
-end
-function MageGate:FillGlyphButtons()
---glyphButtons
-	local level = 0
-	for k = 1, 39 do
-		glyphButtons[k] = CreateFrame("Button","MGGlyphButton"..k,MageGateDHD.GlyphMGFrame)
-		glyphButtons[k]:SetSize(20,20)
-glyphButtons[k]:Show()
-		local index = k
-		glyphButtons[k]:SetScript("OnClick", function() print(index) end)
-		glyphButtons[k]:SetNormalTexture("Interface\\Addons\\MageGate\\Images\\Glyphs\\Glyph "..k)
-		end
-
-		for k = 1,13 do
-			if (k)%13 == 0 then
-				glyphButtons[k]:SetPoint("TOPLEFT", MageGateDHD.GlyphMGFrame, "TOPLEFT", (22* (12) ),-22*level)
-				level = level + 1
-			else
-				glyphButtons[k]:SetPoint("TOPLEFT", MageGateDHD.GlyphMGFrame, "TOPLEFT", (22* ((k%13)-1) ),-22*level)
-			end
-		end
-		for k = 1,13 do
-			if (k)%13 == 0 then
-				glyphButtons[k+13]:SetPoint("TOPLEFT", MageGateDHD.GlyphMGFrame, "TOPLEFT", (22* (12) ),-22*level)
-				level = level + 1
-			else
-				glyphButtons[k+13]:SetPoint("TOPLEFT", MageGateDHD.GlyphMGFrame, "TOPLEFT", (22* ((k%13)-1) ),-22*level)
-			end
-		end
-		for k = 1,13 do
-			if (k)%13 == 0 then
-				glyphButtons[k+26]:SetPoint("TOPLEFT", MageGateDHD.GlyphMGFrame, "TOPLEFT", (22* (12) ),-22*level)
-				level = level + 1
-			else
-				glyphButtons[k+26]:SetPoint("TOPLEFT", MageGateDHD.GlyphMGFrame, "TOPLEFT", (22* ((k%13)-1) ),-22*level)
-			end
-		end
-end
-function MageGate:FillDHDScroll()
---MageGateDHD.portals
-
-	--DHDScroll			= nil
-local portalButtons = {}
-
-	--PortalListElement
-	--portalsID[key] = portal name
-	local count = 1
-	for k,v in pairs (portalsID) do
-		portalButtons[count] = {ID = k,
-			Frame = CreateFrame("Frame","portalbutton"..count, DHDScroll,"PortalListElement")}
---	
-	if count == 1 then
-			portalButtons[count].Frame:SetPoint("TOPLEFT", DHDScroll,"TOPLEFT")
-		else
-			portalButtons[count].Frame:SetPoint("TOPLEFT", portalButtons[count-1].Frame,"BOTTOMLEFT")
-		end
-		portalButtons[count].Frame.but.dest:SetText(v)
-		local key = k
-		portalButtons[count].Frame.but:SetScript("OnClick", function ()
-
-		MageGate:SetUpDHDforPortalID(key)
-		end)
-		count = count + 1
-	end
-end
-
 --GateCastBar		= {
 --								Enabled = true,
 --								NumChevrons = 7,
@@ -2435,28 +2297,4 @@ function MageGate:MessageBreaker2(str)
 	end
 	eke[count] = temp
 	return eke
-end
-
-
--- ========================================================================================================================================================== --
---  Gate Spinning Cast Bar Effect
--- ========================================================================================================================================================== --
-local spinTimer = nil
-
-
-function MageGate:DialingForSpin(spellID)
-
-	if MageGate.db.profile.Portal[spellID].GateCastBar.Enabled then
-		if #MageGate.db.profile.Portal[spellID].GateCastBar.Glyphs ~= ageGate.db.profile.Portal[spellID].GateCastBar.NumChevrons then
-			print("Glyphs were not set")
-		else
-
-		end
-	end
-
-		-- = {
-		--						Enabled = true,
-		--						NumChevrons = 7,
-		--						Glyphs = {}
-		--					}
 end

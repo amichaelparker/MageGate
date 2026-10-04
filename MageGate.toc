@@ -7,20 +7,9 @@
 ## eMail: MasterEndar@yahoo.com
 ## LoadOnDemand: 0
 ## Notes-frFR: Ajoute une touche de StarGate aux portails de mage lorsqu'ils sont incant�.  C'est un addon original, il ne change et n'ajoute rien � l'interface.  Ceci est la version basique.
-## SavedVariables: GATEON,SOUNDFX,AUTOSUMM2,ABORTSTY,CHEVCOUNTER,JUSTYOU,MARKERS,WORMEXIT,TRAVELLER,CHEVRONCOUNT, TELERING, RINGTURNING, MGDATABASE
-## LoadManagers:
-## LoadWith:
-## Secure:
-## Secure:
-## URL:
-
+## SavedVariables: MGDATABASE
 embeds.xml
 Locales\enUS.lua
 Locales\frFR.lua
 Locales\deDE.lua
 MageGate.lua
-MageGateDHD.xml
-GateCaster.xml
-GateCaster.lua
-MGSettingsFrame.xml
-MGSettingsFrame.lua
